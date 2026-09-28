@@ -401,7 +401,7 @@ function render(){
         ${currentRole==="owner" ? navItem("accounts","💰 Accounts (owner only)") : ""}
         ${currentRole==="owner" ? navItem("auditlog","📜 Audit Log (owner only)") : ""}
         <div class="side-footer">
-          Logged in: ${currentUser?currentUser.email:""}<br>Role: ${currentRole}
+          Logged in: ${currentUser?currentUser.email:""}<br>Role: ${currentRole}<br><span style="font-size:9px;word-break:break-all;opacity:.7">debug: ${lastRoleDebug}</span>
           <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px">
             ${currentRole==="owner" ? '<button class="btn small" id="btn-export-excel" style="width:100%">⬇ Export to Excel</button>' : ''}
             ${currentRole==="owner" ? '<button class="btn small" id="btn-backup" style="width:100%">⬇ Backup data (JSON)</button>' : ''}
@@ -1812,11 +1812,13 @@ async function loadAllFromSupabase(){
   state.returns = (ret.data||[]).map(rowToCamel);
 }
 
+let lastRoleDebug = "";
 async function onLoggedIn(session){
   currentUser = { id: session.user.id, email: session.user.email };
   renderLoadingScreen("Aapka data load ho raha hai...");
   const { data: profile, error: profErr } = await sb.from('profiles').select('role').eq('id', currentUser.id).single();
   currentRole = (!profErr && profile) ? profile.role : "employee";
+  lastRoleDebug = profErr ? ("ERROR: " + (profErr.message||JSON.stringify(profErr))) : ("OK, row: " + JSON.stringify(profile));
   await loadAllFromSupabase();
   activeTab = "dashboard";
   render();
