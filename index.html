@@ -113,6 +113,35 @@
   .note { font-size:12.5px; color:var(--muted); margin-top:2px; line-height:1.5; }
   ::-webkit-scrollbar { width:9px; height:9px; }
   ::-webkit-scrollbar-thumb { background:var(--line); border-radius:6px; }
+
+  .mobile-topbar { display:none; }
+  @media (max-width: 780px){
+    .mobile-topbar {
+      display:flex; align-items:center; gap:12px; padding:12px 16px;
+      background:linear-gradient(120deg, #FFD9E8, #D9CCFB);
+      position:sticky; top:0; z-index:40;
+    }
+    .hamburger-btn { background:#FFFFFF; border:none; border-radius:10px; width:38px; height:38px; font-size:18px; cursor:pointer; color:#4A3B5C; flex-shrink:0; }
+    .mobile-brand { font-family:'Fredoka','Quicksand',sans-serif; font-weight:700; font-size:18px; color:#4A3B5C; }
+    .app { flex-direction:column; position:relative; }
+    .side {
+      position:fixed; top:0; left:0; height:100vh; width:78%; max-width:280px;
+      z-index:50; transform:translateX(-100%); transition:transform .25s ease;
+      box-shadow:8px 0 24px rgba(0,0,0,.25); overflow-y:auto;
+    }
+    .side.mobile-open { transform:translateX(0); }
+    .mobile-backdrop { display:block; position:fixed; inset:0; background:rgba(36,27,58,.45); z-index:45; }
+    .main-inner { padding:16px 14px 30px; }
+    .toprow { flex-wrap:wrap; gap:10px; }
+    h1 { font-size:21px; }
+    .stats { grid-template-columns:repeat(2,1fr); gap:10px; }
+    .stat { padding:12px 14px; }
+    .stat .value { font-size:18px; }
+    .panel { overflow-x:auto; }
+    table { font-size:12.5px; min-width:600px; }
+    .modal { width:100%; }
+    .grid2, .grid3 { grid-template-columns:1fr; }
+  }
 </style>
 </head>
 <body>
@@ -189,7 +218,7 @@ let loginError = "";
 let activeTab = "dashboard";
 let modal = null; // {type, data}
 
-function setTab(t){ activeTab = t; render(); }
+function setTab(t){ activeTab = t; mobileMenuOpen = false; render(); }
 function openModal(type, data){ modal = {type, data}; render(); }
 function closeModal(){ modal = null; render(); }
 
@@ -347,11 +376,17 @@ function reverseFabricNeeded(component, numPieces){
 }
 
 // ---------- render ----------
+let mobileMenuOpen = false;
 function render(){
   const root = document.getElementById("root");
   root.innerHTML = `
+    <div class="mobile-topbar">
+      <button class="hamburger-btn" id="btn-hamburger">☰</button>
+      <div class="mobile-brand">🌸 Aradhika</div>
+    </div>
+    ${mobileMenuOpen ? '<div class="mobile-backdrop" id="mobile-backdrop"></div>' : ''}
     <div class="app">
-      <div class="side">
+      <div class="side ${mobileMenuOpen ? 'mobile-open' : ''}">
         <div class="brand">🌸 Aradhika<small>Production &amp; stock manager</small></div>
         ${navItem("dashboard","🏠 Dashboard")}
         ${navItem("designs","🧵 Designs")}
@@ -1534,6 +1569,10 @@ function wrap(inner, afterRender){
 // ---------- event wiring ----------
 function attachHandlers(){
   document.querySelectorAll("[data-nav]").forEach(el=> el.onclick = ()=> setTab(el.dataset.nav));
+  const hamburgerBtn = document.getElementById("btn-hamburger");
+  if (hamburgerBtn) hamburgerBtn.onclick = ()=>{ mobileMenuOpen = !mobileMenuOpen; render(); };
+  const backdrop = document.getElementById("mobile-backdrop");
+  if (backdrop) backdrop.onclick = ()=>{ mobileMenuOpen = false; render(); };
   const backupBtn = document.getElementById("btn-backup");
   if (backupBtn) backupBtn.onclick = ()=>{
     const blob = new Blob([JSON.stringify(state, null, 2)], {type:"application/json"});
