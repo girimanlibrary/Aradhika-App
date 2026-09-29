@@ -7,12 +7,11 @@
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
-<meta name="theme-color" content="#2A1B45">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Aradhika">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Quicksand:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
@@ -23,9 +22,9 @@
     --madder:#FF7AA2;
     --gold:#FFC65C;
     --leaf:#4ECDA6;
-    --bg:#FFF6EE;
+    --bg:#FAF9FB;
     --panel:#FFFFFF;
-    --line:#F5E4E0;
+    --line:#E0D9EE;
     --muted:#A498B5;
     --good:#3FBF95;
   }
@@ -40,42 +39,63 @@
     --bg:#231C34; --panel:#2E2645; --line:#453A63; --muted:#B8ADCF; --good:#7EE8C4;
   }
   * { box-sizing: border-box; }
-  body { margin:0; background:var(--bg); color:var(--ink); font-family:'Nunito','Quicksand',sans-serif; }
+  body { margin:0; background: linear-gradient(160deg, #E6F7F3 0%, #ECE9FA 45%, #FCE9F3 100%); color:#2B2140; font-family:'Poppins',sans-serif; }
   .app { display:flex; min-height:100vh; }
 
   .side {
-    width:230px; flex-shrink:0; color:#4A3B5C;
+    width:230px; flex-shrink:0; color:#FFFFFF; position:relative;
     background:
-      radial-gradient(circle at 20% 15%, rgba(255,255,255,.55) 0, transparent 55%),
-      radial-gradient(circle at 85% 70%, rgba(255,255,255,.35) 0, transparent 45%),
-      linear-gradient(200deg, #FFD9E8 0%, #D9CCFB 55%, #BFE3FF 130%);
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='44'><g fill='none' stroke='%23FFFFFF' stroke-width='1' opacity='0.12'><rect x='4' y='4' width='36' height='36' transform='rotate(45 22 22)'/><circle cx='22' cy='22' r='3'/><path d='M22 8 L22 36 M8 22 L36 22'/></g></svg>"),
+      radial-gradient(circle at 15% 10%, rgba(255,255,255,.12) 0, transparent 55%),
+      linear-gradient(200deg, #0F9B8E 0%, #5B4FCF 55%, #C23FA8 130%);
+    background-repeat: repeat, no-repeat, no-repeat;
     display:flex; flex-direction:column;
   }
-  .brand { font-family:'Fredoka','Quicksand',sans-serif; font-weight:700; font-size:23px; padding:26px 20px 18px; border-bottom:2px dashed rgba(74,59,92,.18); color:#6B4C8A; letter-spacing:.01em; }
-  .brand small { display:block; font-family:'Quicksand',sans-serif; font-weight:600; font-size:11px; color:#9A7CB0; margin-top:4px; letter-spacing:.02em; }
-  .nav-item { margin:4px 12px; padding:10px 16px; cursor:pointer; font-size:14px; font-weight:700; border-radius:14px; color:#6B4C8A; letter-spacing:.01em; transition:transform .12s ease, background .12s ease; }
-  .nav-item:hover { background:rgba(255,255,255,.55); transform:translateX(2px); }
-  .nav-item.active { color:#5B3A73; background:linear-gradient(120deg, #FFC65C, #FF9EC0); font-weight:800; box-shadow:0 4px 12px -4px rgba(255,122,162,.55); }
-  .side-footer { margin-top:auto; padding:16px 22px; font-size:11.5px; color:#8A6BA3; line-height:1.6; border-top:2px dashed rgba(74,59,92,.18); }
+  .brand { font-family:'Poppins',sans-serif; font-weight:700; font-size:24px; padding:26px 20px 18px; border-bottom:2px dashed rgba(255,255,255,.3); color:#FFFFFF; letter-spacing:.02em; }
+  .brand small { display:block; font-family:'Poppins',sans-serif; font-weight:600; font-size:11px; color:rgba(255,255,255,.8); margin-top:4px; letter-spacing:.04em; text-transform:uppercase; }
+  .nav-item { margin:4px 12px; padding:10px 16px; cursor:pointer; font-size:14px; font-weight:700; border-radius:12px; color:rgba(255,255,255,.92); letter-spacing:.01em; transition:transform .12s ease, background .12s ease; }
+  .nav-item:hover { background:rgba(255,255,255,.15); transform:translateX(2px); }
+  .nav-item.active { color:#FFFFFF; background:linear-gradient(120deg, #FF4D9D, #FF7A5C); font-weight:800; box-shadow:0 4px 14px -2px rgba(0,0,0,.3); }
+  .side-footer { margin-top:auto; padding:16px 22px; font-size:11.5px; color:rgba(255,255,255,.8); line-height:1.6; border-top:2px dashed rgba(255,255,255,.25); }
 
-  .main { flex:1; padding:0; overflow-x:auto; }
-  .main-inner { padding:28px 40px 40px; }
-  h1 { font-family:'Fredoka','Quicksand',sans-serif; font-size:26px; font-weight:700; margin:0 0 4px; color:var(--ink); }
-  h2 { font-family:'Quicksand',sans-serif; font-size:15px; font-weight:700; margin:0 0 12px; color:var(--ink); letter-spacing:.01em; }
+  .main { flex:1; padding:0; overflow-x:auto; display:flex; flex-direction:column; }
+  .main-inner { padding:28px 40px 40px; flex:1; }
+
+  .theme-dashboard { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.1' opacity='0.07' stroke-linecap='round' stroke-linejoin='round'><path d='M14 34 L32 18 L50 34 M20 30 V46 H44 V30'/></g></svg>"), url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.6' opacity='0.10' stroke-linecap='round' stroke-linejoin='round'><path d='M14 34 L32 18 L50 34 M20 30 V46 H44 V30'/></g></svg>"); background-repeat: no-repeat, repeat; background-size: 300px 300px, 64px 64px; background-position: center 60%, 0 0; }
+  .theme-designs { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.1' opacity='0.07' stroke-linecap='round' stroke-linejoin='round'><path d='M16 48 C 24 40, 24 28, 16 20 M16 20 L22 14 M40 24 A6 6 0 1 1 40 24.1'/><circle cx='40' cy='24' r='5'/></g></svg>"), url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.6' opacity='0.10' stroke-linecap='round' stroke-linejoin='round'><path d='M16 48 C 24 40, 24 28, 16 20 M16 20 L22 14 M40 24 A6 6 0 1 1 40 24.1'/><circle cx='40' cy='24' r='5'/></g></svg>"); background-repeat: no-repeat, repeat; background-size: 300px 300px, 64px 64px; background-position: center 60%, 0 0; }
+  .theme-materials { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.1' opacity='0.07' stroke-linecap='round' stroke-linejoin='round'><ellipse cx='32' cy='22' rx='10' ry='6'/><path d='M22 22 V42 A10 6 0 0 0 42 42 V22'/></g></svg>"), url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.6' opacity='0.10' stroke-linecap='round' stroke-linejoin='round'><ellipse cx='32' cy='22' rx='10' ry='6'/><path d='M22 22 V42 A10 6 0 0 0 42 42 V22'/></g></svg>"); background-repeat: no-repeat, repeat; background-size: 300px 300px, 64px 64px; background-position: center 60%, 0 0; }
+  .theme-printing { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.1' opacity='0.07' stroke-linecap='round' stroke-linejoin='round'><ellipse cx='32' cy='18' rx='6' ry='9'/><ellipse cx='32' cy='46' rx='6' ry='9'/><ellipse cx='18' cy='32' rx='9' ry='6'/><ellipse cx='46' cy='32' rx='9' ry='6'/><circle cx='32' cy='32' r='4'/></g></svg>"), url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.6' opacity='0.10' stroke-linecap='round' stroke-linejoin='round'><ellipse cx='32' cy='18' rx='6' ry='9'/><ellipse cx='32' cy='46' rx='6' ry='9'/><ellipse cx='18' cy='32' rx='9' ry='6'/><ellipse cx='46' cy='32' rx='9' ry='6'/><circle cx='32' cy='32' r='4'/></g></svg>"); background-repeat: no-repeat, repeat; background-size: 300px 300px, 64px 64px; background-position: center 60%, 0 0; }
+  .theme-cutting { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.1' opacity='0.07' stroke-linecap='round' stroke-linejoin='round'><circle cx='18' cy='18' r='5'/><circle cx='18' cy='46' r='5'/><path d='M22 21 L48 46 M22 43 L48 18'/></g></svg>"), url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.6' opacity='0.10' stroke-linecap='round' stroke-linejoin='round'><circle cx='18' cy='18' r='5'/><circle cx='18' cy='46' r='5'/><path d='M22 21 L48 46 M22 43 L48 18'/></g></svg>"); background-repeat: no-repeat, repeat; background-size: 300px 300px, 64px 64px; background-position: center 60%, 0 0; }
+  .theme-karigar { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.1' opacity='0.07' stroke-linecap='round' stroke-linejoin='round'><circle cx='32' cy='18' r='7'/><path d='M20 50 C20 36, 44 36, 44 50'/></g></svg>"), url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.6' opacity='0.10' stroke-linecap='round' stroke-linejoin='round'><circle cx='32' cy='18' r='7'/><path d='M20 50 C20 36, 44 36, 44 50'/></g></svg>"); background-repeat: no-repeat, repeat; background-size: 300px 300px, 64px 64px; background-position: center 60%, 0 0; }
+  .theme-press { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.1' opacity='0.07' stroke-linecap='round' stroke-linejoin='round'><path d='M14 40 H40 L47 34 L38 26 H20 Q14 26 14 32 Z'/><path d='M20 26 Q27 15 34 26'/><circle cx='24' cy='11' r='1.4'/><circle cx='30' cy='9' r='1.4'/></g></svg>"), url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.6' opacity='0.10' stroke-linecap='round' stroke-linejoin='round'><path d='M14 40 H40 L47 34 L38 26 H20 Q14 26 14 32 Z'/><path d='M20 26 Q27 15 34 26'/><circle cx='24' cy='11' r='1.4'/><circle cx='30' cy='9' r='1.4'/></g></svg>"); background-repeat: no-repeat, repeat; background-size: 300px 300px, 64px 64px; background-position: center 60%, 0 0; }
+  .theme-stock { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.1' opacity='0.07' stroke-linecap='round' stroke-linejoin='round'><rect x='14' y='30' width='16' height='16'/><rect x='34' y='30' width='16' height='16'/><rect x='24' y='12' width='16' height='16'/></g></svg>"), url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.6' opacity='0.10' stroke-linecap='round' stroke-linejoin='round'><rect x='14' y='30' width='16' height='16'/><rect x='34' y='30' width='16' height='16'/><rect x='24' y='12' width='16' height='16'/></g></svg>"); background-repeat: no-repeat, repeat; background-size: 300px 300px, 64px 64px; background-position: center 60%, 0 0; }
+  .theme-suppliers { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.1' opacity='0.07' stroke-linecap='round' stroke-linejoin='round'><path d='M16 26 L20 14 H44 L48 26 Z'/><path d='M16 26 V48 H48 V26'/><path d='M26 48 V36 H38 V48'/></g></svg>"), url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.6' opacity='0.10' stroke-linecap='round' stroke-linejoin='round'><path d='M16 26 L20 14 H44 L48 26 Z'/><path d='M16 26 V48 H48 V26'/><path d='M26 48 V36 H38 V48'/></g></svg>"); background-repeat: no-repeat, repeat; background-size: 300px 300px, 64px 64px; background-position: center 60%, 0 0; }
+  .theme-returns { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.1' opacity='0.07' stroke-linecap='round' stroke-linejoin='round'><path d='M42 20 A16 16 0 1 1 22 20'/><path d='M22 12 L22 22 L32 22'/></g></svg>"), url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.6' opacity='0.10' stroke-linecap='round' stroke-linejoin='round'><path d='M42 20 A16 16 0 1 1 22 20'/><path d='M22 12 L22 22 L32 22'/></g></svg>"); background-repeat: no-repeat, repeat; background-size: 300px 300px, 64px 64px; background-position: center 60%, 0 0; }
+  .theme-accounts { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.1' opacity='0.07' stroke-linecap='round' stroke-linejoin='round'><circle cx='32' cy='32' r='14'/><path d='M32 24 V40 M27 28 H37 M27 36 H37'/></g></svg>"), url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.6' opacity='0.10' stroke-linecap='round' stroke-linejoin='round'><circle cx='32' cy='32' r='14'/><path d='M32 24 V40 M27 28 H37 M27 36 H37'/></g></svg>"); background-repeat: no-repeat, repeat; background-size: 300px 300px, 64px 64px; background-position: center 60%, 0 0; }
+  .theme-auditlog { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.1' opacity='0.07' stroke-linecap='round' stroke-linejoin='round'><rect x='18' y='12' width='28' height='40' rx='2'/><path d='M24 22 H40 M24 30 H40 M24 38 H32'/></g></svg>"), url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'><g fill='none' stroke='%232B2140' stroke-width='1.6' opacity='0.10' stroke-linecap='round' stroke-linejoin='round'><rect x='18' y='12' width='28' height='40' rx='2'/><path d='M24 22 H40 M24 30 H40 M24 38 H32'/></g></svg>"); background-repeat: no-repeat, repeat; background-size: 300px 300px, 64px 64px; background-position: center 60%, 0 0; }
+
+
+
+
+
+
+
+  h1 { font-family:'Poppins',sans-serif; font-size:28px; font-weight:700; margin:0 0 4px; color:#2B2140; }
+  h2 { font-family:'Poppins',sans-serif; font-size:15px; font-weight:700; margin:0 0 12px; color:#5A3B33; letter-spacing:.01em; }
   .toprow { display:flex; justify-content:space-between; align-items:center; margin-bottom:22px; }
 
   .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:16px; margin-bottom:30px; }
-  .stat { background:var(--panel); border:2px solid var(--line); border-radius:20px; padding:16px 18px; display:flex; align-items:center; gap:14px; box-shadow:0 8px 18px -12px rgba(255,122,162,.35); transition:transform .15s ease; }
+  .stat { background:var(--panel); border:2px solid var(--line); border-radius:16px; padding:16px 18px; display:flex; align-items:center; gap:14px; box-shadow:0 8px 18px -14px rgba(45,27,61,.35); transition:transform .15s ease; }
   .stat:hover { transform:translateY(-3px); }
   .stat::before {
-    content:""; flex-shrink:0; width:42px; height:42px; border-radius:14px;
+    content:""; flex-shrink:0; width:42px; height:42px; border-radius:12px;
     background:linear-gradient(135deg, var(--madder), var(--gold));
   }
-  .stat:nth-of-type(4n+2)::before{ background:linear-gradient(135deg, var(--indigo), var(--madder)); }
+  .stat:nth-of-type(4n+2)::before{ background:linear-gradient(135deg, var(--indigo), var(--gold)); }
   .stat:nth-of-type(4n+3)::before{ background:linear-gradient(135deg, var(--gold), var(--leaf)); }
   .stat:nth-of-type(4n+4)::before{ background:linear-gradient(135deg, var(--leaf), var(--indigo)); }
   .stat .label { font-size:11.5px; color:var(--muted); margin-bottom:5px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; }
-  .stat .value { font-family:'Quicksand',sans-serif; font-size:23px; font-weight:700; color:var(--ink); }
+  .stat .value { font-family:'Poppins',sans-serif; font-size:23px; font-weight:700; color:var(--ink); }
 
   .panel { background:var(--panel); border:2px solid var(--line); border-radius:20px; overflow:hidden; margin-bottom:22px; box-shadow:0 8px 20px -16px rgba(139,127,214,.3); }
   table { width:100%; border-collapse:collapse; font-size:13.5px; }
@@ -83,7 +103,7 @@
   td { padding:11px 16px; border-bottom:1px solid var(--line); vertical-align:top; }
   tr:last-child td { border-bottom:none; }
   tr:hover td { background:rgba(255,122,162,.06); }
-  .mono { font-family:'Quicksand',sans-serif; font-weight:700; }
+  .mono { font-family:'Poppins',sans-serif; font-weight:700; }
 
   .btn { border:2px solid var(--line); background:var(--panel); color:var(--ink); border-radius:999px; padding:9px 18px; font-size:13px; font-weight:700; cursor:pointer; font-family:'Nunito',sans-serif; transition:transform .1s ease; }
   .btn:hover { background:rgba(255,122,162,.06); transform:translateY(-1px); }
@@ -97,6 +117,14 @@
   input:focus, select:focus { outline:none; border-color:var(--madder); box-shadow:0 0 0 3px rgba(255,122,162,.18); }
   label.field { display:flex; flex-direction:column; gap:4px; font-size:12.5px; color:var(--muted); font-weight:700; }
   .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .dash-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:18px; margin-bottom:22px; align-items:start; }
+  .dcard { background:var(--panel); border:2px solid var(--line); border-radius:20px; padding:18px 20px; box-shadow:0 8px 20px -16px rgba(139,127,214,.3); }
+  .dcard h3 { margin:0 0 12px; font-family:'Poppins',sans-serif; font-size:15px; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:8px; }
+  .dcard .miniRow { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--line); font-size:13.5px; }
+  .dcard .miniRow:last-child { border-bottom:none; }
+  .dcard .miniRow .tag { font-size:11px; padding:2px 8px; border-radius:20px; background:var(--bg); color:var(--muted); font-weight:600; }
+  .dash-actions-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; }
+  .dash-actions-grid .group h4 { margin:0 0 8px; font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); font-weight:700; }
   .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
   .overlay { position:fixed; inset:0; background:rgba(91,58,115,.45); display:flex; align-items:center; justify-content:center; z-index:50; padding:20px; }
   .modal { background:var(--panel); border-radius:26px; padding:24px; width:440px; max-width:100%; max-height:88vh; overflow-y:auto; display:flex; flex-direction:column; gap:12px; box-shadow:0 24px 60px -20px rgba(91,58,115,.45); }
@@ -122,7 +150,7 @@
       position:sticky; top:0; z-index:40;
     }
     .hamburger-btn { background:#FFFFFF; border:none; border-radius:10px; width:38px; height:38px; font-size:18px; cursor:pointer; color:#4A3B5C; flex-shrink:0; }
-    .mobile-brand { font-family:'Fredoka','Quicksand',sans-serif; font-weight:700; font-size:18px; color:#4A3B5C; }
+    .mobile-brand { font-family:'Poppins',sans-serif; font-weight:700; font-size:18px; color:#4A3B5C; }
     .app { flex-direction:column; position:relative; }
     .side {
       position:fixed; top:0; left:0; height:100vh; width:78%; max-width:280px;
@@ -173,6 +201,15 @@ const STATE_KEY = {
 
 function toCamelKey(k){ return k.replace(/_([a-z0-9])/g, (_,c)=>c.toUpperCase()); }
 function toSnakeKey(k){ return k.replace(/[A-Z]/g, c=>'_'+c.toLowerCase()); }
+function readPhotoAsDataUrl(fileInput){
+  return new Promise((resolve)=>{
+    if (fileInput && fileInput.files && fileInput.files[0]){
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.readAsDataURL(fileInput.files[0]);
+    } else resolve(null);
+  });
+}
 function rowToCamel(row){
   if (!row) return row;
   const out = {};
@@ -388,28 +425,28 @@ function render(){
     <div class="app">
       <div class="side ${mobileMenuOpen ? 'mobile-open' : ''}">
         <div class="brand">🌸 Aradhika<small>Production &amp; stock manager</small></div>
-        ${navItem("dashboard","🏠 Dashboard")}
-        ${navItem("designs","🧵 Designs")}
-        ${navItem("materials","📦 Materials")}
-        ${navItem("printing","🎨 Printing")}
-        ${navItem("cutting","✂️ Cutting")}
-        ${navItem("karigar","🧑‍🔧 Karigar")}
-        ${navItem("press","🧺 Press &amp; Packing")}
-        ${navItem("stock","📊 Stock")}
-        ${currentRole==="owner" ? navItem("suppliers","🏬 Suppliers (owner only)") : ""}
-        ${navItem("returns","↩️ Returns / RTO")}
-        ${currentRole==="owner" ? navItem("accounts","💰 Accounts (owner only)") : ""}
-        ${currentRole==="owner" ? navItem("auditlog","📜 Audit Log (owner only)") : ""}
+        ${navItem("dashboard","🏠 Dashboard / होम")}
+        ${navItem("designs","🧵 Designs / डिज़ाइन")}
+        ${navItem("materials","🧶 Materials / कपड़ा-सामान")}
+        ${navItem("printing","🧣 Printing / छपाई")}
+        ${navItem("cutting","✂️ Cutting / कटिंग")}
+        ${navItem("karigar","🧑‍🔧 Karigar / कारीगर")}
+        ${navItem("press","🧷 Press &amp; Packing / प्रेस-पैकिंग")}
+        ${navItem("stock","📦 Stock / स्टॉक")}
+        ${currentRole==="owner" ? navItem("suppliers","🏬 Suppliers / सप्लायर (owner only)") : ""}
+        ${navItem("returns","↩️ Returns / वापसी (RTO)")}
+        ${currentRole==="owner" ? navItem("accounts","💰 Accounts / हिसाब-किताब (owner only)") : ""}
+        ${currentRole==="owner" ? navItem("auditlog","📜 Audit Log / रिकॉर्ड (owner only)") : ""}
         <div class="side-footer">
           Logged in: ${currentUser?currentUser.email:""}<br>Role: ${currentRole}<br><span style="font-size:9px;word-break:break-all;opacity:.7">debug: ${lastRoleDebug}</span>
           <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px">
-            ${currentRole==="owner" ? '<button class="btn small" id="btn-export-excel" style="width:100%">⬇ Export to Excel</button>' : ''}
-            ${currentRole==="owner" ? '<button class="btn small" id="btn-backup" style="width:100%">⬇ Backup data (JSON)</button>' : ''}
-            <button class="btn small" id="btn-signout" style="width:100%">Sign out</button>
+            ${currentRole==="owner" ? '<button class="btn small" id="btn-export-excel" style="width:100%">⬇ Export to Excel / एक्सेल में निकालें</button>' : ''}
+            ${currentRole==="owner" ? '<button class="btn small" id="btn-backup" style="width:100%">⬇ Backup data / डेटा सुरक्षित करें</button>' : ''}
+            <button class="btn small" id="btn-signout" style="width:100%">Sign out / लॉगआउट</button>
           </div>
         </div>
       </div>
-      <div class="main"><div class="main-inner">${renderTab()}</div></div>
+      <div class="main"><div class="main-inner theme-${activeTab}">${renderTab()}</div></div>
     </div>
     ${modal ? renderModal() : ""}
   `;
@@ -448,54 +485,88 @@ function renderDashboard(){
   const today = new Date().toISOString().slice(0,10);
   const overdueBatches = state.batches.filter(b => b.expectedReturnDate && b.expectedReturnDate < today && Number(b.receivedQty||0) < Number(b.givenQty||0));
   const overduePress = state.press.filter(p => p.expectedReturnDate && p.expectedReturnDate < today && Number(p.returnedQty||0) < Number(p.sentQty||0));
+  const pendingReturns = state.returns.filter(r => !r.cancelled && r.resolution==="pending");
   const pendingKarigarPieces = state.batches.reduce((sum,b)=> sum + Math.max(0,(b.givenQty||0)-(b.receivedQty||0)),0);
   const totalPaymentDue = state.karigars.reduce((sum,k)=> sum + paymentDue(k.id), 0);
+  const totalPendingActions = overdueBatches.length + overduePress.length + lowMaterials.length + waitAlerts.length + pendingReturns.length;
+
+  // ---- Sales by channel (from dispatches) ----
+  const byDest = { "Amazon.in":{qty:0,value:0}, "Amazon.com":{qty:0,value:0}, "Myntra":{qty:0,value:0} };
+  state.dispatches.filter(d=>!d.cancelled).forEach(d=>{
+    const design = state.designs.find(x=>x.id===d.designId);
+    const price = !design ? 0 : d.destination==="Myntra" ? Number(design.priceMyntra||0) : d.destination==="Amazon.com" ? Number(design.priceCom||0) : Number(design.priceIn||0);
+    if (byDest[d.destination]){ byDest[d.destination].qty += Number(d.qty||0); byDest[d.destination].value += price*Number(d.qty||0); }
+  });
+  const showMoney = currentRole==="owner";
+
+  // ---- Top-selling designs (by dispatched qty) ----
+  const dispatchByDesign = {};
+  state.dispatches.filter(d=>!d.cancelled).forEach(d=>{ dispatchByDesign[d.designId] = (dispatchByDesign[d.designId]||0) + Number(d.qty||0); });
+  const topDesigns = Object.entries(dispatchByDesign).map(([id,qty])=>{
+    const d = state.designs.find(x=>x.id===id); return d ? {code:d.code, name:d.name, qty} : null;
+  }).filter(Boolean).sort((a,b)=>b.qty-a.qty).slice(0,5);
+
+  // ---- Recent activity (latest across the shop floor) ----
+  const activity = [];
+  state.dispatches.filter(d=>!d.cancelled).forEach(d=>{ const des=state.designs.find(x=>x.id===d.designId); activity.push({at:d.date, text:`Dispatched ${d.qty} pcs of ${des?des.code:"—"} to ${d.destination}`}); });
+  state.cutting.forEach(c=>{ const des=state.designs.find(x=>x.id===c.designId); activity.push({at:c.date, text:`Cut ${c.totalPieces} pcs of ${des?des.code:"—"} (${c.meterUsed}m fabric)`}); });
+  state.karigarPayments.filter(p=>!p.cancelled).forEach(p=>{ const k=state.karigars.find(x=>x.id===p.karigarId); activity.push({at:p.date, text:`Paid ₹${p.amount} to karigar ${k?k.name:"—"}`}); });
+  state.supplierPayments.filter(p=>!p.cancelled).forEach(p=>{ const s=state.suppliers.find(x=>x.id===p.supplierId); activity.push({at:p.date, text:`Paid ₹${p.amount} to supplier ${s?s.name:"—"}`}); });
+  state.returns.filter(r=>!r.cancelled).forEach(r=>{ const des=state.designs.find(x=>x.id===r.designId); activity.push({at:r.date, text:`Return logged: ${r.qty} pcs of ${des?des.code:"—"} from ${r.destination}`}); });
+  activity.sort((a,b)=> (b.at||"").localeCompare(a.at||""));
+  const recentActivity = activity.slice(0,8);
 
   return `
-    <h1>Dashboard</h1>
+    <h1>Dashboard / होम</h1>
     <div class="stats">
       <div class="stat"><div class="label">Designs</div><div class="value">${state.designs.length}</div></div>
       <div class="stat"><div class="label">Karigars</div><div class="value">${state.karigars.length}</div></div>
       <div class="stat"><div class="label">Pieces pending with karigars</div><div class="value">${pendingKarigarPieces}</div></div>
-      <div class="stat"><div class="label">Total payment due</div><div class="value mono">₹${totalPaymentDue.toFixed(0)}</div></div>
+      ${showMoney ? `<div class="stat"><div class="label">Total payment due</div><div class="value mono">₹${totalPaymentDue.toFixed(0)}</div></div>` : ''}
     </div>
 
-    <h2>Overdue — karigar</h2>
-    <div class="panel">
-      ${overdueBatches.length===0 ? `<div class="empty">No karigar batches overdue.</div>` :
-        `<table><tr><th>Batch</th><th>Karigar</th><th>Expected by</th><th>Pending pieces</th></tr>
-        ${overdueBatches.map(b=>{
-          const k = state.karigars.find(x=>x.id===b.karigarId);
-          return `<tr><td class="mono">${b.batchLabel}</td><td>${k?k.name:"—"}</td><td>${b.expectedReturnDate}</td><td class="mono">${Number(b.givenQty||0)-Number(b.receivedQty||0)}</td></tr>`;
-        }).join("")}
-        </table>`}
-    </div>
+    <div class="dash-cards">
 
-    <h2>Overdue — press</h2>
-    <div class="panel">
-      ${overduePress.length===0 ? `<div class="empty">No press entries overdue.</div>` :
-        `<table><tr><th>Design</th><th>Sent date</th><th>Expected by</th><th>Pending pieces</th></tr>
-        ${overduePress.map(p=>{
-          const d = state.designs.find(x=>x.id===p.designId);
-          return `<tr><td>${d?d.code:"—"}</td><td>${p.date}</td><td>${p.expectedReturnDate}</td><td class="mono">${Number(p.sentQty||0)-Number(p.returnedQty||0)}</td></tr>`;
-        }).join("")}
-        </table>`}
-    </div>
+      <div class="dcard">
+        <h3>⚠️ Pending actions / जरूरी काम <span class="tag" style="margin-left:auto">${totalPendingActions}</span></h3>
+        ${totalPendingActions===0 ? `<div class="empty">Sab kuch up to date hai — nothing pending right now.</div>` : `
+        <div class="dash-actions-grid">
+          <div class="group">
+            <h4>Karigar / Press (overdue)</h4>
+            ${overdueBatches.length===0 && overduePress.length===0 ? `<div class="miniRow"><span>None</span></div>` : ``}
+            ${overdueBatches.map(b=>{ const k=state.karigars.find(x=>x.id===b.karigarId); return `<div class="miniRow"><span>${b.batchLabel} — ${k?k.name:"—"}</span><span class="tag">${Number(b.givenQty||0)-Number(b.receivedQty||0)} pcs</span></div>`; }).join("")}
+            ${overduePress.map(p=>{ const d=state.designs.find(x=>x.id===p.designId); return `<div class="miniRow"><span>Press: ${d?d.code:"—"}</span><span class="tag">${Number(p.sentQty||0)-Number(p.returnedQty||0)} pcs</span></div>`; }).join("")}
+          </div>
+          <div class="group">
+            <h4>Stock alerts</h4>
+            ${lowMaterials.length===0 ? `<div class="miniRow"><span>Nothing low</span></div>` : lowMaterials.map(m=>`<div class="miniRow"><span>${m.name}</span><span class="tag">${m.qty} ${m.unit}</span></div>`).join("")}
+          </div>
+          <div class="group">
+            <h4>Waiting to cut (10+)</h4>
+            ${waitAlerts.length===0 ? `<div class="miniRow"><span>None</span></div>` : waitAlerts.map(w=>`<div class="miniRow"><span>${w.design} — ${w.component}</span><span class="tag">${w.waiting}</span></div>`).join("")}
+          </div>
+          <div class="group">
+            <h4>Returns pending decision</h4>
+            ${pendingReturns.length===0 ? `<div class="miniRow"><span>None</span></div>` : pendingReturns.map(r=>{ const d=state.designs.find(x=>x.id===r.designId); return `<div class="miniRow"><span>${d?d.code:"—"} — ${r.destination}</span><span class="tag">${r.qty} pcs</span></div>`; }).join("")}
+          </div>
+        </div>`}
+      </div>
 
-    <h2>Low material stock</h2>
-    <div class="panel">
-      ${lowMaterials.length===0 ? `<div class="empty">Nothing running low.</div>` :
-        `<table><tr><th>Material</th><th>Qty left</th><th>Unit</th></tr>
-        ${lowMaterials.map(m=>`<tr><td>${m.name}</td><td class="mono">${m.qty}</td><td>${m.unit}</td></tr>`).join("")}
-        </table>`}
-    </div>
+      <div class="dcard">
+        <h3>📦 Sales by channel / मार्केटप्लेस अनुसार बिक्री</h3>
+        ${Object.entries(byDest).map(([dest,v])=>`<div class="miniRow"><span>${dest}</span><span class="tag">${v.qty} pcs${showMoney && v.value>0 ? " · ₹"+v.value.toFixed(0) : ""}</span></div>`).join("")}
+      </div>
 
-    <h2>Waiting-for-match — needs cutting (10+ pending)</h2>
-    <div class="panel">
-      ${waitAlerts.length===0 ? `<div class="empty">No component backlog above the threshold.</div>` :
-        `<table><tr><th>Design</th><th>Component</th><th>Waiting</th><th></th></tr>
-        ${waitAlerts.map(w=>`<tr><td>${w.design}</td><td>${w.component}</td><td class="mono">${w.waiting}</td><td><span class="badge wait">Ask master ji to cut ${w.component}</span></td></tr>`).join("")}
-        </table>`}
+      <div class="dcard">
+        <h3>⭐ Top-selling designs / सबसे ज्यादा बिकने वाले</h3>
+        ${topDesigns.length===0 ? `<div class="empty">No dispatches recorded yet.</div>` : topDesigns.map(d=>`<div class="miniRow"><span>${d.code} — ${d.name}</span><span class="tag">${d.qty} pcs</span></div>`).join("")}
+      </div>
+
+      <div class="dcard">
+        <h3>🕒 Recent activity / हाल की गतिविधि</h3>
+        ${recentActivity.length===0 ? `<div class="empty">Nothing recorded yet.</div>` : recentActivity.map(a=>`<div class="miniRow"><span>${a.text}</span><span class="tag">${a.at||"—"}</span></div>`).join("")}
+      </div>
+
     </div>
   `;
 }
@@ -504,11 +575,11 @@ function renderDashboard(){
 function renderMaterials(){
   const showRate = currentRole==="owner";
   return `
-    <div class="toprow"><h1>Materials</h1><div class="row-actions"><button class="btn" data-open="foldsettings">Fabric fold % settings</button><button class="btn primary" data-open="material-new">Add material</button></div></div>
+    <div class="toprow"><h1>Materials / कपड़ा-सामान</h1><div class="row-actions"><button class="btn" data-open="foldsettings">Fabric fold % settings / कपड़ा सेटिंग</button><button class="btn primary" data-open="material-new">Add material / नया सामान जोड़ें</button></div></div>
     <div class="panel">
       ${state.materials.length===0 ? `<div class="empty">No materials added yet — add fabric, thread, buttons, packaging etc.</div>` :
       `<table>
-        <tr><th>Name</th><th>Type</th><th>Source</th><th>Billed qty</th><th>Actual qty</th><th>Unit</th>${showRate?'<th>Rate</th>':''}<th>Supplier</th><th>Lot/Shade</th><th>Location</th><th>Bill</th><th></th></tr>
+        <tr><th>Name / नाम</th><th>Type / प्रकार</th><th>Source / कहाँ से</th><th>Billed qty / बिल में मात्रा</th><th>Actual qty / असली मात्रा</th><th>Unit</th>${showRate?'<th>Rate / रेट</th>':''}<th>Supplier</th><th>Lot/Shade / लॉट/शेड</th><th>Location / जगह</th><th>Bill / बिल</th><th></th></tr>
         ${state.materials.map(m=>{
           const isFabric = m.type==="Fabric";
           const low = Number(m.qty)<=Number(m.lowAt||0);
@@ -518,8 +589,8 @@ function renderMaterials(){
             <td class="mono">${isFabric ? (m.billedQty!=null?m.billedQty:"—") : "—"}</td>
             <td class="mono">${m.qty}${low?' <span class="badge low">Low</span>':''}</td>
             <td>${m.unit}</td>${showRate?`<td class="mono">${m.rate||"—"}</td>`:''}<td>${m.supplier||"—"}</td><td>${m.lot||"—"}</td><td>${m.location}</td>
-            <td>${m.billPhotoUrl ? `<img src="${m.billPhotoUrl}" style="width:30px;height:30px;object-fit:cover;border-radius:3px;cursor:pointer" data-view-photo="${m.id}">` : "—"}</td>
-            <td class="row-actions"><button class="btn small" data-open="material-edit" data-id="${m.id}">Edit</button><button class="btn small danger" data-del="material" data-id="${m.id}">Delete</button></td>
+            <td>${m.billPhotoUrl ? `<img src="${m.billPhotoUrl}" style="width:30px;height:30px;object-fit:cover;border-radius:3px;cursor:pointer" class="view-photo-btn" data-photo-url="${m.billPhotoUrl}">` : "—"}</td>
+            <td class="row-actions"><button class="btn small" data-open="material-edit" data-id="${m.id}">Edit / बदलें</button><button class="btn small danger" data-del="material" data-id="${m.id}">Delete / हटाएं</button></td>
           </tr>`;
         }).join("")}
       </table>`}
@@ -530,12 +601,12 @@ function renderMaterials(){
 // ---------- Printing ----------
 function renderPrinting(){
   return `
-    <div class="toprow"><h1>Printing</h1><button class="btn primary" data-open="printing-new">Send fabric to printer</button></div>
+    <div class="toprow"><h1>Printing / छपाई</h1><button class="btn primary" data-open="printing-new">Send fabric to printer / प्रिंटर को भेजें</button></div>
     <p class="note">Use this only when raw fabric goes out for printing. If ready printed/pre-shrunk fabric arrives directly from a supplier, log it straight in Materials instead — this stage is skipped for that fabric.</p>
     <div class="panel">
       ${state.printing.filter(p=>!p.cancelled).length===0 ? `<div class="empty">No fabric sent for printing yet.</div>` :
       `<table>
-        <tr><th>Sent date</th><th>Fabric</th><th>Printer</th><th>Sent (m)</th><th>Returned (m)</th><th>Shrinkage (actual / standard)</th><th>Settlement</th><th>Print issue (m)</th><th>Damage (m)</th><th>Status</th><th></th></tr>
+        <tr><th>Sent date / भेजा कब</th><th>Fabric</th><th>Printer / प्रिंटर</th><th>Sent (m) / भेजा (मीटर)</th><th>Returned (m) / वापस आया (मीटर)</th><th>Shrinkage (actual / standard)</th><th>Settlement</th><th>Print issue (m)</th><th>Damage (m)</th><th>Bilty / बिल्टी</th><th>Status / स्टेटस</th><th></th></tr>
         ${state.printing.filter(p=>!p.cancelled).map(p=>{
           const m = state.materials.find(x=>x.id===p.materialId);
           const done = p.returnedQty && Number(p.returnedQty) > 0;
@@ -550,8 +621,9 @@ function renderPrinting(){
           <td class="mono">${calc ? calc.actualPct.toFixed(1)+"% / "+calc.standardPct+"%" : "—"}</td>
           <td>${settlementText}</td>
           <td class="mono">${p.printIssueQty||0}</td><td class="mono">${p.damageQty||0}</td>
+          <td>${p.docPhotoUrl ? `<img src="${p.docPhotoUrl}" style="width:30px;height:30px;object-fit:cover;border-radius:3px;cursor:pointer" class="view-photo-btn" data-photo-url="${p.docPhotoUrl}">` : "—"}</td>
           <td>${done?'<span class="badge ok">Returned</span>':'<span class="badge wait">At printer</span>'}</td>
-          <td class="row-actions"><button class="btn small" data-open="printing-edit" data-id="${p.id}">Update</button><button class="btn small danger" data-del="printing" data-id="${p.id}">Cancel</button></td></tr>`;
+          <td class="row-actions"><button class="btn small" data-open="printing-edit" data-id="${p.id}">Update / अपडेट</button><button class="btn small danger" data-del="printing" data-id="${p.id}">Cancel / रद्द करें</button></td></tr>`;
         }).join("")}
       </table>`}
     </div>
@@ -562,11 +634,11 @@ function renderPrinting(){
 function renderDesigns(){
   const showPrice = currentRole==="owner";
   return `
-    <div class="toprow"><h1>Designs</h1><button class="btn primary" data-open="design-new">Add design</button></div>
+    <div class="toprow"><h1>Designs / डिज़ाइन</h1><button class="btn primary" data-open="design-new">Add design / नया डिज़ाइन जोड़ें</button></div>
     <div class="panel">
       ${state.designs.length===0 ? `<div class="empty">No designs added yet.</div>` :
       `<table>
-        <tr><th>Code / Name</th><th>Status</th>${showPrice?'<th>Price (In / .com / Myntra)</th><th>GST %</th>':''}<th>Components</th><th>Colour variant</th><th>Photos/video</th><th></th></tr>
+        <tr><th>Code / Name</th><th>Status / स्टेटस</th>${showPrice?'<th>Price (In / .com / Myntra)</th><th>GST % / GST %</th>':''}<th>Components / पार्ट्स</th><th>Colour variant / रंग</th><th>Photos/video / फोटो/वीडियो</th><th></th></tr>
         ${state.designs.map(d=>{
           const statusBadge = d.status==="draft" ? '<span class="badge wait">Draft</span>' : d.status==="rejected" ? '<span class="badge low">Rejected</span>' : '<span class="badge ok">Active</span>';
           return `<tr>
@@ -576,7 +648,7 @@ function renderDesigns(){
             <td>${(d.components||[]).map(c=>c.name+" ("+c.avgConsumption+"m avg)").join(", ")||"—"}</td>
             <td>${d.hasColor? "Yes":"No"}</td>
             <td>${d.driveLink ? `<a href="${d.driveLink}" target="_blank" rel="noopener">Open ↗</a>` : "—"}</td>
-            <td class="row-actions"><button class="btn small" data-open="design-journey" data-id="${d.id}">Journey</button><button class="btn small" data-open="design-edit" data-id="${d.id}">Edit</button><button class="btn small danger" data-del="design" data-id="${d.id}">Delete</button></td>
+            <td class="row-actions"><button class="btn small" data-open="design-journey" data-id="${d.id}">Journey / सफर देखें</button><button class="btn small" data-open="design-edit" data-id="${d.id}">Edit / बदलें</button><button class="btn small danger" data-del="design" data-id="${d.id}">Delete / हटाएं</button></td>
           </tr>`;
         }).join("")}
       </table>`}
@@ -585,16 +657,38 @@ function renderDesigns(){
 }
 
 // ---------- Cutting ----------
+function designExpectedAvg(design){
+  if (!design || !design.components || design.components.length===0) return null;
+  return design.components.reduce((s,c)=> s + (Number(c.avgConsumption)||0), 0);
+}
 function renderCutting(){
+  const entriesWithAvg = state.cutting.map(c=>{
+    const d = state.designs.find(x=>x.id===c.designId);
+    const pieces = Number(c.totalPieces)||0;
+    const actualAvg = pieces>0 ? Number(c.meterUsed)/pieces : null;
+    const expectedAvg = designExpectedAvg(d);
+    return {c, d, actualAvg, expectedAvg};
+  });
+  const withActual = entriesWithAvg.filter(x=>x.actualAvg!=null);
+  const overallAvg = withActual.length ? withActual.reduce((s,x)=>s+x.actualAvg,0)/withActual.length : null;
   return `
-    <div class="toprow"><h1>Cutting</h1><button class="btn primary" data-open="cutting-new">Record cutting</button></div>
+    <div class="toprow"><h1>Cutting / कटिंग</h1><button class="btn primary" data-open="cutting-new">Record cutting / कटिंग दर्ज करें</button></div>
+    <p class="note">"Average / piece" = fabric used ÷ pieces cut for that lay — the standard cutting-stage average. It's compared against the design's expected average (set on the Designs tab, from its components) so you can catch fabric wastage early.</p>
+    ${overallAvg!=null ? `<div class="stats" style="margin-bottom:14px"><div class="stat"><div class="label">Overall average (all entries)</div><div class="value mono">${overallAvg.toFixed(2)} m/piece</div></div></div>` : ''}
     <div class="panel">
       ${state.cutting.length===0 ? `<div class="empty">No cutting entries recorded yet.</div>` :
       `<table>
-        <tr><th>Date</th><th>Design</th><th>Fabric used (m)</th><th>Total pieces</th><th>Size-wise output (pieces)</th></tr>
-        ${state.cutting.map(c=>{
-          const d = state.designs.find(x=>x.id===c.designId);
+        <tr><th>Date / तारीख</th><th>Design</th><th>Fabric used (m) / कपड़ा इस्तेमाल (मीटर)</th><th>Total pieces / कुल पीस</th><th>Average / piece (actual)</th><th>Expected avg (design)</th><th>Size-wise output (pieces) / साइज़ अनुसार पीस</th></tr>
+        ${entriesWithAvg.map(({c,d,actualAvg,expectedAvg})=>{
+          let avgCell = actualAvg!=null ? actualAvg.toFixed(2)+"m" : "—";
+          if (actualAvg!=null && expectedAvg!=null && expectedAvg>0){
+            const diffPct = ((actualAvg-expectedAvg)/expectedAvg)*100;
+            if (diffPct > 8) avgCell += ` <span class="badge low">+${diffPct.toFixed(0)}% high</span>`;
+            else if (diffPct < -8) avgCell += ` <span class="badge ok">${diffPct.toFixed(0)}%</span>`;
+            else avgCell += ` <span class="badge ok">On track</span>`;
+          }
           return `<tr><td>${c.date}</td><td>${d? d.code : "—"}</td><td class="mono">${c.meterUsed}</td><td class="mono">${c.totalPieces}</td>
+          <td class="mono">${avgCell}</td><td class="mono">${expectedAvg!=null ? expectedAvg.toFixed(2)+"m" : "—"}</td>
           <td>${SIZES.map(s=> c.sizeBreakdown && c.sizeBreakdown[s] ? s+":"+c.sizeBreakdown[s] : null).filter(Boolean).join(", ") || "—"}</td></tr>`;
         }).join("")}
       </table>`}
@@ -606,16 +700,16 @@ function renderCutting(){
 function renderKarigar(){
   const showMoney = currentRole==="owner";
   return `
-    <div class="toprow"><h1>Karigar</h1><div class="row-actions"><button class="btn" data-open="batch-new">Assign pieces</button>${showMoney?'<button class="btn" data-open="karigarpayment-new">Record payment</button>':''}<button class="btn primary" data-open="karigar-new">Add karigar</button></div></div>
+    <div class="toprow"><h1>Karigar / कारीगर</h1><div class="row-actions"><button class="btn" data-open="batch-new">Assign pieces / पीस बांटें</button>${showMoney?'<button class="btn" data-open="karigarpayment-new">Record payment / पेमेंट दर्ज करें</button>':''}<button class="btn primary" data-open="karigar-new">Add karigar / नया कारीगर जोड़ें</button></div></div>
     <div class="panel">
       ${state.karigars.length===0 ? `<div class="empty">No karigars added yet.</div>` :
       `<table>
-        <tr><th>Name</th><th>Phone</th>${showMoney?'<th>Rate/piece</th>':''}<th>Pending pieces</th>${showMoney?'<th>Total earned</th><th>Total paid</th><th>Advance outstanding</th><th>Net balance due</th>':''}<th></th></tr>
+        <tr><th>Name / नाम</th><th>Phone / फ़ोन</th>${showMoney?'<th>Rate/piece / रेट/पीस</th>':''}<th>Pending pieces / बाकी पीस</th>${showMoney?'<th>Total earned / कुल कमाया</th><th>Total paid / कुल दिया</th><th>Advance outstanding / एडवांस बाकी</th><th>Net balance due / कुल बकाया</th>':''}<th></th></tr>
         ${state.karigars.map(k=>{
           const pending = state.batches.filter(b=>b.karigarId===k.id && !b.cancelled).reduce((s,b)=>s+Math.max(0,(b.givenQty||0)-(b.receivedQty||0)),0);
           return `<tr><td>${k.name}</td><td>${k.phone||"—"}</td>${showMoney?`<td class="mono">₹${k.rate}</td>`:''}<td class="mono">${pending}</td>
           ${showMoney?`<td class="mono">₹${totalEarned(k.id).toFixed(0)}</td><td class="mono">₹${totalPaidToKarigar(k.id).toFixed(0)}</td><td class="mono">₹${Number(k.advance||0).toFixed(0)}</td><td class="mono">₹${paymentDue(k.id).toFixed(0)}</td>`:''}
-          <td class="row-actions"><button class="btn small" data-open="karigar-edit" data-id="${k.id}">Edit</button><button class="btn small danger" data-del="karigar" data-id="${k.id}">Delete</button></td></tr>`;
+          <td class="row-actions"><button class="btn small" data-open="karigar-edit" data-id="${k.id}">Edit / बदलें</button><button class="btn small danger" data-del="karigar" data-id="${k.id}">Delete / हटाएं</button></td></tr>`;
         }).join("")}
       </table>`}
     </div>
@@ -625,11 +719,11 @@ function renderKarigar(){
     <div class="panel">
       ${state.karigarPayments.filter(p=>!p.cancelled).length===0 ? `<div class="empty">No payments recorded yet.</div>` :
       `<table>
-        <tr><th>Date</th><th>Karigar</th><th>Amount</th><th>Note</th><th></th></tr>
+        <tr><th>Date / तारीख</th><th>Karigar / कारीगर</th><th>Amount / रकम</th><th>Note / नोट</th><th></th></tr>
         ${state.karigarPayments.filter(p=>!p.cancelled).slice().reverse().map(p=>{
           const k = state.karigars.find(x=>x.id===p.karigarId);
           return `<tr><td>${p.date}</td><td>${k?k.name:"—"}</td><td class="mono">₹${p.amount}</td><td>${p.note||"—"}</td>
-          <td class="row-actions"><button class="btn small danger" data-del="karigarpayment" data-id="${p.id}">Cancel</button></td></tr>`;
+          <td class="row-actions"><button class="btn small danger" data-del="karigarpayment" data-id="${p.id}">Cancel / रद्द करें</button></td></tr>`;
         }).join("")}
       </table>`}
     </div>` : ''}
@@ -639,7 +733,7 @@ function renderKarigar(){
     <div class="panel">
       ${state.karigars.length===0 ? `<div class="empty">No karigars added yet.</div>` :
       `<table>
-        <tr><th>Karigar</th><th>Total received</th><th>Good</th><th>Not-OK</th><th>Good %</th></tr>
+        <tr><th>Karigar / कारीगर</th><th>Total received / कुल मिला</th><th>Good / अच्छा</th><th>Not-OK / खराब</th><th>Good % / अच्छा %</th></tr>
         ${state.karigars.map(k=>{
           const perf = karigarPerformance(k.id);
           const pctBadge = perf.goodPct==null ? "—" : perf.goodPct>=95 ? `<span class="badge ok">${perf.goodPct.toFixed(0)}%</span>` : perf.goodPct>=85 ? `<span class="badge wait">${perf.goodPct.toFixed(0)}%</span>` : `<span class="badge low">${perf.goodPct.toFixed(0)}%</span>`;
@@ -652,13 +746,13 @@ function renderKarigar(){
     <div class="panel">
       ${state.batches.filter(b=>!b.cancelled).length===0 ? `<div class="empty">No pieces assigned to any karigar yet.</div>` :
       `<table>
-        <tr><th>Batch</th><th>Design</th><th>Component</th><th>Karigar</th><th>Given</th><th>Received</th><th>Not-OK</th><th></th></tr>
+        <tr><th>Batch / बैच</th><th>Design</th><th>Component</th><th>Karigar / कारीगर</th><th>Given / दिया</th><th>Received / मिला</th><th>Not-OK / खराब</th><th></th></tr>
         ${state.batches.filter(b=>!b.cancelled).map(b=>{
           const d = state.designs.find(x=>x.id===b.designId);
           const k = state.karigars.find(x=>x.id===b.karigarId);
           return `<tr><td class="mono">${b.batchLabel}</td><td>${d?d.code:"—"}</td><td>${b.component}</td><td>${k?k.name:"—"}</td>
           <td class="mono">${b.givenQty}</td><td class="mono">${b.receivedQty||0}</td><td class="mono">${b.notOkQty||0}</td>
-          <td class="row-actions"><button class="btn small" data-open="batch-edit" data-id="${b.id}">Update</button><button class="btn small danger" data-del="batch" data-id="${b.id}">Cancel</button></td></tr>`;
+          <td class="row-actions"><button class="btn small" data-open="batch-edit" data-id="${b.id}">Update / अपडेट</button><button class="btn small danger" data-del="batch" data-id="${b.id}">Cancel / रद्द करें</button></td></tr>`;
         }).join("")}
       </table>`}
     </div>
@@ -668,17 +762,17 @@ function renderKarigar(){
 // ---------- Press & Packing ----------
 function renderPress(){
   return `
-    <div class="toprow"><h1>Press &amp; Packing</h1><button class="btn primary" data-open="press-new">Record press entry</button></div>
+    <div class="toprow"><h1>Press &amp; Packing / प्रेस-पैकिंग</h1><button class="btn primary" data-open="press-new">Record press entry / प्रेस एंट्री दर्ज करें</button></div>
     <div class="panel">
       ${state.press.filter(p=>!p.cancelled).length===0 ? `<div class="empty">No press entries yet.</div>` :
       `<table>
-        <tr><th>Sent date</th><th>Design</th><th>Sent qty</th><th>Returned qty</th><th>Returned date</th><th>Status</th><th></th></tr>
+        <tr><th>Sent date / भेजा कब</th><th>Design</th><th>Sent qty</th><th>Returned qty</th><th>Returned date</th><th>Status / स्टेटस</th><th></th></tr>
         ${state.press.filter(p=>!p.cancelled).map(p=>{
           const d = state.designs.find(x=>x.id===p.designId);
           const done = p.returnedQty>=p.sentQty && p.returnedQty>0;
           return `<tr><td>${p.date}</td><td>${d?d.code:"—"}</td><td class="mono">${p.sentQty}</td><td class="mono">${p.returnedQty||0}</td><td>${p.returnedDate||"—"}</td>
           <td>${done?'<span class="badge ok">Packed stock</span>':'<span class="badge wait">At press</span>'}</td>
-          <td class="row-actions"><button class="btn small" data-open="press-edit" data-id="${p.id}">Update</button><button class="btn small danger" data-del="press" data-id="${p.id}">Cancel</button></td></tr>`;
+          <td class="row-actions"><button class="btn small" data-open="press-edit" data-id="${p.id}">Update / अपडेट</button><button class="btn small danger" data-del="press" data-id="${p.id}">Cancel / रद्द करें</button></td></tr>`;
         }).join("")}
       </table>`}
     </div>
@@ -694,7 +788,7 @@ function renderStock(){
   const byDest = { "Amazon.in":0, "Amazon.com":0, "Myntra":0 };
   state.dispatches.filter(d=>!d.cancelled).forEach(d=>{ byDest[d.destination] = (byDest[d.destination]||0) + Number(d.qty||0); });
   return `
-    <div class="toprow"><h1>Stock</h1><button class="btn primary" data-open="dispatch-new">Record dispatch</button></div>
+    <div class="toprow"><h1>Stock / स्टॉक</h1><button class="btn primary" data-open="dispatch-new">Record dispatch / भेजा हुआ माल दर्ज करें</button></div>
     <p class="note">Office/Printer/Karigar/Press stages are already tracked in their own tabs (pending quantities show there and on the Dashboard). This tab tracks what's ready and what's been sent out to each marketplace — this running total is also what you compare against Amazon/Myntra's own reported stock to catch any mismatch. Restocked returns (Returns/RTO tab) are added back here automatically.</p>
     <div class="stats" style="margin-bottom:10px">
       <div class="stat"><div class="label">Ready to dispatch (packed, not yet sent)</div><div class="value mono">${readyToDispatch}</div></div>
@@ -706,11 +800,12 @@ function renderStock(){
     <div class="panel">
       ${state.dispatches.filter(d=>!d.cancelled).length===0 ? `<div class="empty">No dispatches recorded yet.</div>` :
       `<table>
-        <tr><th>Date</th><th>Design</th><th>Qty (pieces)</th><th>Boxes</th><th>Destination</th><th></th></tr>
+        <tr><th>Date / तारीख</th><th>Design</th><th>Qty (pieces) / मात्रा (पीस)</th><th>Boxes / बॉक्स</th><th>Destination / कहाँ भेजा</th><th>Bilty / बिल्टी</th><th></th></tr>
         ${state.dispatches.filter(d=>!d.cancelled).slice().reverse().map(d=>{
           const design = state.designs.find(x=>x.id===d.designId);
           return `<tr><td>${d.date}</td><td>${design?design.code:"—"}</td><td class="mono">${d.qty}</td><td class="mono">${d.boxes||"—"}</td><td>${d.destination}</td>
-          <td class="row-actions"><button class="btn small danger" data-del="dispatch" data-id="${d.id}">Cancel</button></td></tr>`;
+          <td>${d.docPhotoUrl ? `<img src="${d.docPhotoUrl}" style="width:30px;height:30px;object-fit:cover;border-radius:3px;cursor:pointer" class="view-photo-btn" data-photo-url="${d.docPhotoUrl}">` : "—"}</td>
+          <td class="row-actions"><button class="btn small danger" data-del="dispatch" data-id="${d.id}">Cancel / रद्द करें</button></td></tr>`;
         }).join("")}
       </table>`}
     </div>
@@ -720,16 +815,16 @@ function renderStock(){
 // ---------- Suppliers ----------
 function renderSuppliers(){
   return `
-    <div class="toprow"><h1>Suppliers</h1><div class="row-actions"><button class="btn" data-open="supplierpayment-new">Record payment</button><button class="btn primary" data-open="supplier-new">Add supplier</button></div></div>
+    <div class="toprow"><h1>Suppliers / सप्लायर</h1><div class="row-actions"><button class="btn" data-open="supplierpayment-new">Record payment / पेमेंट दर्ज करें</button><button class="btn primary" data-open="supplier-new">Add supplier / नया सप्लायर जोड़ें</button></div></div>
     <p class="note">Ledger is calculated from materials you've linked to a supplier (Materials → "Registered supplier" field), minus payments recorded here.</p>
     <div class="panel">
       ${state.suppliers.length===0 ? `<div class="empty">No suppliers added yet.</div>` :
       `<table>
-        <tr><th>Name</th><th>Phone</th><th>GST number</th><th>Total purchased</th><th>Total paid</th><th>Balance due</th><th></th></tr>
+        <tr><th>Name / नाम</th><th>Phone / फ़ोन</th><th>GST number / GST नंबर</th><th>Total purchased / कुल खरीदा</th><th>Total paid / कुल दिया</th><th>Balance due / बकाया</th><th></th></tr>
         ${state.suppliers.map(s=>{
           return `<tr><td>${s.name}</td><td>${s.phone||"—"}</td><td>${s.gstNumber||"—"}</td>
           <td class="mono">₹${totalPurchasedFromSupplier(s.id).toFixed(0)}</td><td class="mono">₹${totalPaidToSupplier(s.id).toFixed(0)}</td><td class="mono">₹${supplierBalanceDue(s.id).toFixed(0)}</td>
-          <td class="row-actions"><button class="btn small" data-open="supplier-edit" data-id="${s.id}">Edit</button><button class="btn small danger" data-del="supplier" data-id="${s.id}">Delete</button></td></tr>`;
+          <td class="row-actions"><button class="btn small" data-open="supplier-edit" data-id="${s.id}">Edit / बदलें</button><button class="btn small danger" data-del="supplier" data-id="${s.id}">Delete / हटाएं</button></td></tr>`;
         }).join("")}
       </table>`}
     </div>
@@ -737,13 +832,34 @@ function renderSuppliers(){
     <div class="panel">
       ${state.supplierPayments.filter(p=>!p.cancelled).length===0 ? `<div class="empty">No payments recorded yet.</div>` :
       `<table>
-        <tr><th>Date</th><th>Supplier</th><th>Amount</th><th>Note</th><th></th></tr>
+        <tr><th>Date / तारीख</th><th>Supplier</th><th>Amount / रकम</th><th>Note / नोट</th><th>Bill / बिल</th><th></th></tr>
         ${state.supplierPayments.filter(p=>!p.cancelled).slice().reverse().map(p=>{
           const s = state.suppliers.find(x=>x.id===p.supplierId);
           return `<tr><td>${p.date}</td><td>${s?s.name:"—"}</td><td class="mono">₹${p.amount}</td><td>${p.note||"—"}</td>
-          <td class="row-actions"><button class="btn small danger" data-del="supplierpayment" data-id="${p.id}">Cancel</button></td></tr>`;
+          <td>${p.docPhotoUrl ? `<img src="${p.docPhotoUrl}" style="width:30px;height:30px;object-fit:cover;border-radius:3px;cursor:pointer" class="view-photo-btn" data-photo-url="${p.docPhotoUrl}">` : "—"}</td>
+          <td class="row-actions"><button class="btn small danger" data-del="supplierpayment" data-id="${p.id}">Cancel / रद्द करें</button></td></tr>`;
         }).join("")}
       </table>`}
+    </div>
+
+    <h2>Documents — bills &amp; bilty, per supplier / हर सप्लायर के डॉक्यूमेंट</h2>
+    <p class="note">Every bill/bilty photo linked to a supplier — from Materials purchases and from payments — collected here in one place.</p>
+    <div class="panel">
+      ${(() => {
+        const groups = state.suppliers.map(s=>{
+          const fromMaterials = state.materials.filter(m=>m.supplierId===s.id && m.billPhotoUrl).map(m=>({label:`Material: ${m.name} (${m.lot||m.location||"—"})`, url:m.billPhotoUrl}));
+          const fromPayments = state.supplierPayments.filter(p=>!p.cancelled && p.supplierId===s.id && p.docPhotoUrl).map(p=>({label:`Payment: ₹${p.amount} on ${p.date}`, url:p.docPhotoUrl}));
+          return { supplier: s, docs: [...fromMaterials, ...fromPayments] };
+        }).filter(g=>g.docs.length>0);
+        if (groups.length===0) return `<div class="empty">No documents attached yet — add a bill photo in Materials, or a receipt photo when recording a supplier payment.</div>`;
+        return groups.map(g=>`
+          <div style="padding:12px 16px;border-bottom:1px solid var(--line)">
+            <div style="font-weight:700;margin-bottom:8px">${g.supplier.name}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px">
+              ${g.docs.map(d=>`<div style="text-align:center"><img src="${d.url}" class="view-photo-btn" data-photo-url="${d.url}" style="width:60px;height:60px;object-fit:cover;border-radius:6px;cursor:pointer;display:block;margin:0 auto 4px"><div class="note" style="margin:0;font-size:11px;max-width:80px">${d.label}</div></div>`).join("")}
+            </div>
+          </div>`).join("");
+      })()}
     </div>
   `;
 }
@@ -751,17 +867,17 @@ function renderSuppliers(){
 // ---------- Returns / RTO ----------
 function renderReturns(){
   return `
-    <div class="toprow"><h1>Returns / RTO</h1><button class="btn primary" data-open="return-new">Record a return</button></div>
+    <div class="toprow"><h1>Returns / वापसी (RTO)</h1><button class="btn primary" data-open="return-new">Record a return / वापसी दर्ज करें</button></div>
     <p class="note">Log returns/RTO from marketplaces here. Mark "Restock" if the piece is sellable again (adds it back to Stock's "ready to dispatch" count), or "Damaged" if it isn't.</p>
     <div class="panel">
       ${state.returns.filter(r=>!r.cancelled).length===0 ? `<div class="empty">No returns recorded yet.</div>` :
       `<table>
-        <tr><th>Date</th><th>Design</th><th>Destination</th><th>Qty</th><th>Reason</th><th>Resolution</th><th></th></tr>
+        <tr><th>Date / तारीख</th><th>Design</th><th>Destination / कहाँ भेजा</th><th>Qty</th><th>Reason / कारण</th><th>Resolution</th><th></th></tr>
         ${state.returns.filter(r=>!r.cancelled).slice().reverse().map(r=>{
           const d = state.designs.find(x=>x.id===r.designId);
           const resBadge = r.resolution==="restock" ? '<span class="badge ok">Restocked</span>' : r.resolution==="damaged" ? '<span class="badge low">Damaged</span>' : '<span class="badge wait">Pending decision</span>';
           return `<tr><td>${r.date}</td><td>${d?d.code:"—"}</td><td>${r.destination}</td><td class="mono">${r.qty}</td><td>${r.reason||"—"}</td><td>${resBadge}</td>
-          <td class="row-actions"><button class="btn small" data-open="return-edit" data-id="${r.id}">Update</button><button class="btn small danger" data-del="return" data-id="${r.id}">Cancel</button></td></tr>`;
+          <td class="row-actions"><button class="btn small" data-open="return-edit" data-id="${r.id}">Update / अपडेट</button><button class="btn small danger" data-del="return" data-id="${r.id}">Cancel / रद्द करें</button></td></tr>`;
         }).join("")}
       </table>`}
     </div>
@@ -775,7 +891,7 @@ function renderAccounts(){
   const totalSampleCost = state.designs.reduce((s,d)=>s+Number(d.sampleCost||0),0);
   const totalShootCost = state.designs.reduce((s,d)=>s+Number(d.shootCost||0),0);
   return `
-    <h1>Accounts</h1>
+    <h1>Accounts / हिसाब-किताब</h1>
     <p class="note">This tab is now hidden from employee-role users in the app menu itself. Full GST invoicing, ledgers, and financial-year reports are part of a later phase. What's below is a starting point: karigar and staff payments, plus one-time design costs.</p>
     <div class="stats">
       <div class="stat"><div class="label">Total paid to karigars</div><div class="value mono">₹${totalKarigarPaid.toFixed(0)}</div></div>
@@ -802,7 +918,7 @@ function renderAccounts(){
         const totalSales = rows.reduce((s,r)=>s+r.saleValue,0);
         if (rows.length===0) return `<div class="empty">No India dispatches recorded yet.</div>`;
         return `<table>
-          <tr><th>Design</th><th>Destination</th><th>Qty</th><th>Sale value</th><th>GST %</th><th>GST amount</th></tr>
+          <tr><th>Design</th><th>Destination / कहाँ भेजा</th><th>Qty</th><th>Sale value / बिक्री कीमत</th><th>GST % / GST %</th><th>GST amount / GST रकम</th></tr>
           ${rows.map(r=>`<tr><td>${r.code}</td><td>${r.destination}</td><td class="mono">${r.qty}</td><td class="mono">₹${r.saleValue.toFixed(0)}</td><td class="mono">${r.gstPct}%</td><td class="mono">₹${r.gstAmount.toFixed(0)}</td></tr>`).join("")}
           <tr><td colspan="3"><b>Total</b></td><td class="mono"><b>₹${totalSales.toFixed(0)}</b></td><td></td><td class="mono"><b>₹${totalGst.toFixed(0)}</b></td></tr>
         </table>`;
@@ -813,7 +929,7 @@ function renderAccounts(){
     <div class="panel">
       ${state.suppliers.length===0 ? `<div class="empty">No suppliers added yet — add them from the Suppliers tab.</div>` :
       `<table>
-        <tr><th>Supplier</th><th>Total purchased</th><th>Total paid</th><th>Balance due</th></tr>
+        <tr><th>Supplier</th><th>Total purchased / कुल खरीदा</th><th>Total paid / कुल दिया</th><th>Balance due / बकाया</th></tr>
         ${state.suppliers.map(s=>`<tr><td>${s.name}</td><td class="mono">₹${totalPurchasedFromSupplier(s.id).toFixed(0)}</td><td class="mono">₹${totalPaidToSupplier(s.id).toFixed(0)}</td><td class="mono">₹${supplierBalanceDue(s.id).toFixed(0)}</td></tr>`).join("")}
         <tr><td><b>Total</b></td><td></td><td></td><td class="mono"><b>₹${state.suppliers.reduce((s,x)=>s+supplierBalanceDue(x.id),0).toFixed(0)}</b></td></tr>
       </table>`}
@@ -824,7 +940,7 @@ function renderAccounts(){
     <div class="panel">
       ${state.designs.filter(d=>d.status!=="draft"&&d.status!=="rejected").length===0 ? `<div class="empty">No active designs yet.</div>` :
       `<table>
-        <tr><th>Design</th><th>Cost/piece (fabric+print+press+stitch)</th><th>Amazon.in profit/piece</th><th>Amazon.com profit/piece</th><th>Myntra profit/piece</th></tr>
+        <tr><th>Design</th><th>Cost/piece (fabric+print+press+stitch) / खर्चा/पीस (कपड़ा+छपाई+प्रेस+सिलाई)</th><th>Amazon.in profit/piece / Amazon.in मुनाफ़ा/पीस</th><th>Amazon.com profit/piece / Amazon.com मुनाफ़ा/पीस</th><th>Myntra profit/piece / Myntra मुनाफ़ा/पीस</th></tr>
         ${state.designs.filter(d=>d.status!=="draft"&&d.status!=="rejected").map(d=>{
           const p = designProfitability(d);
           const fmt = (r,symbol) => r ? `${symbol}${r.profit.toFixed(2)} (${r.marginPct.toFixed(0)}%)` : "—";
@@ -835,15 +951,15 @@ function renderAccounts(){
       </table>`}
     </div>
 
-    <div class="toprow"><h2>Staff &amp; salaries</h2><div class="row-actions"><button class="btn" data-open="staffpayment-new">Record salary payment</button><button class="btn primary" data-open="staff-new">Add staff member</button></div></div>
+    <div class="toprow"><h2>Staff &amp; salaries</h2><div class="row-actions"><button class="btn" data-open="staffpayment-new">Record salary payment / सैलरी दर्ज करें</button><button class="btn primary" data-open="staff-new">Add staff member / नया स्टाफ जोड़ें</button></div></div>
     <div class="panel">
       ${state.staff.length===0 ? `<div class="empty">No staff added yet — add master ji, cutting/QC staff, packing staff etc.</div>` :
       `<table>
-        <tr><th>Name</th><th>Role</th><th>Monthly salary</th><th>Paid so far</th><th></th></tr>
+        <tr><th>Name / नाम</th><th>Role / काम</th><th>Monthly salary / महीने की सैलरी</th><th>Paid so far / अब तक दिया</th><th></th></tr>
         ${state.staff.map(s=>{
           const paid = state.staffPayments.filter(p=>p.staffId===s.id && !p.cancelled).reduce((sum,p)=>sum+Number(p.amount||0),0);
           return `<tr><td>${s.name}</td><td>${s.role}</td><td class="mono">₹${s.monthlySalary}</td><td class="mono">₹${paid.toFixed(0)}</td>
-          <td class="row-actions"><button class="btn small" data-open="staff-edit" data-id="${s.id}">Edit</button><button class="btn small danger" data-del="staff" data-id="${s.id}">Delete</button></td></tr>`;
+          <td class="row-actions"><button class="btn small" data-open="staff-edit" data-id="${s.id}">Edit / बदलें</button><button class="btn small danger" data-del="staff" data-id="${s.id}">Delete / हटाएं</button></td></tr>`;
         }).join("")}
       </table>`}
     </div>
@@ -852,11 +968,11 @@ function renderAccounts(){
     <div class="panel">
       ${state.staffPayments.filter(p=>!p.cancelled).length===0 ? `<div class="empty">No salary payments recorded yet.</div>` :
       `<table>
-        <tr><th>Date</th><th>Staff</th><th>Amount</th><th>Note</th><th></th></tr>
+        <tr><th>Date / तारीख</th><th>Staff</th><th>Amount / रकम</th><th>Note / नोट</th><th></th></tr>
         ${state.staffPayments.filter(p=>!p.cancelled).slice().reverse().map(p=>{
           const s = state.staff.find(x=>x.id===p.staffId);
           return `<tr><td>${p.date}</td><td>${s?s.name:"—"}</td><td class="mono">₹${p.amount}</td><td>${p.note||"—"}</td>
-          <td class="row-actions"><button class="btn small danger" data-del="staffpayment" data-id="${p.id}">Cancel</button></td></tr>`;
+          <td class="row-actions"><button class="btn small danger" data-del="staffpayment" data-id="${p.id}">Cancel / रद्द करें</button></td></tr>`;
         }).join("")}
       </table>`}
     </div>
@@ -865,7 +981,7 @@ function renderAccounts(){
     <div class="panel">
       ${state.designs.length===0 ? `<div class="empty">No designs added yet.</div>` :
       `<table>
-        <tr><th>Design</th><th>Status</th><th>Sample-making cost</th><th>Photoshoot/video cost</th></tr>
+        <tr><th>Design</th><th>Status / स्टेटस</th><th>Sample-making cost / सैंपल खर्चा</th><th>Photoshoot/video cost / फोटोशूट/वीडियो खर्चा</th></tr>
         ${state.designs.map(d=>{
           const statusLabel = d.status==="draft" ? "Draft" : d.status==="rejected" ? "Rejected (bill as attempted, not produced)" : "Active";
           return `<tr><td>${d.code}</td><td>${statusLabel}</td><td class="mono">₹${d.sampleCost||0}</td><td class="mono">₹${d.shootCost||0}</td></tr>`;
@@ -886,11 +1002,11 @@ function renderAuditLog(){
   state.dispatches.filter(x=>x.cancelled).forEach(x=>{ const d=state.designs.find(d=>d.id===x.designId); rows.push({type:"Dispatch", detail:`${d?d.code:"—"} — ${x.qty} pieces to ${x.destination}`, at:x.cancelledAt}); });
   rows.sort((a,b)=> (b.at||"").localeCompare(a.at||""));
   return `
-    <h1>Audit Log</h1>
+    <h1>Audit Log / रिकॉर्ड</h1>
     <p class="note">This is hidden from employee-role users in the app menu. Cancelled/financial entries are never permanently deleted — cancelling one keeps the original record here, with when it was cancelled, so nothing disappears without a trace.</p>
     <div class="panel">
       ${rows.length===0 ? `<div class="empty">No cancelled entries yet.</div>` :
-      `<table><tr><th>Type</th><th>Detail</th><th>Cancelled at</th></tr>
+      `<table><tr><th>Type / प्रकार</th><th>Detail / विवरण</th><th>Cancelled at / कब रद्द हुआ</th></tr>
       ${rows.map(r=>`<tr><td>${r.type}</td><td>${r.detail}</td><td class="mono">${r.at ? new Date(r.at).toLocaleString() : "—"}</td></tr>`).join("")}
       </table>`}
     </div>
@@ -925,15 +1041,15 @@ function supplierModal(){
   return wrap(`
     <h2>${isEdit?"Edit":"Add"} supplier</h2>
     <form id="f-supplier">
-      <label class="field">Name<input name="name" required value="${s.name}"></label>
+      <label class="field">Name / नाम<input name="name" required value="${s.name}"></label>
       <div class="grid2">
-        <label class="field">Phone<input name="phone" value="${s.phone||""}"></label>
-        <label class="field">GST number (optional)<input name="gstNumber" value="${s.gstNumber||""}"></label>
+        <label class="field">Phone / फ़ोन<input name="phone" value="${s.phone||""}"></label>
+        <label class="field">GST number (optional) / GST नंबर (optional)<input name="gstNumber" value="${s.gstNumber||""}"></label>
       </div>
-      <label class="field">Notes (optional)<input name="notes" value="${s.notes||""}"></label>
+      <label class="field">Notes (optional) / नोट्स (optional)<input name="notes" value="${s.notes||""}"></label>
       <div class="row-actions" style="justify-content:flex-end;margin-top:6px">
-        <button type="button" class="btn" data-close="1">Cancel</button>
-        <button type="submit" class="btn primary">Save</button>
+        <button type="button" class="btn" data-close="1">Cancel / रद्द करें</button>
+        <button type="submit" class="btn primary">Save / सेव करें</button>
       </div>
     </form>
   `);
@@ -943,18 +1059,34 @@ function supplierPaymentModal(){
   return wrap(`
     <h2>Record supplier payment</h2>
     <form id="f-supplierpayment">
-      <label class="field">Supplier<select name="supplierId">${state.suppliers.map(s=>`<option value="${s.id}">${s.name} — balance due ₹${supplierBalanceDue(s.id).toFixed(0)}</option>`).join("")}</select></label>
+      <label class="field">Supplier / सप्लायर<select name="supplierId">${state.suppliers.map(s=>`<option value="${s.id}">${s.name} — balance due ₹${supplierBalanceDue(s.id).toFixed(0)}</option>`).join("")}</select></label>
       <div class="grid2">
-        <label class="field">Date<input name="date" type="date" required value="${new Date().toISOString().slice(0,10)}"></label>
-        <label class="field">Amount paid (₹)<input name="amount" type="number" required></label>
+        <label class="field">Date / तारीख<input name="date" type="date" required value="${new Date().toISOString().slice(0,10)}"></label>
+        <label class="field">Amount paid (₹) / कितना पैसा दिया (₹)<input name="amount" type="number" required></label>
       </div>
-      <label class="field">Note (optional)<input name="note"></label>
+      <label class="field">Note (optional) / नोट (optional)<input name="note"></label>
+      <label class="field">Bill/receipt photo (optional) / बिल-रसीद फोटो (optional)<input type="file" accept="image/*" id="supplierpayment-billphoto"></label>
       <div class="row-actions" style="justify-content:flex-end;margin-top:6px">
-        <button type="button" class="btn" data-close="1">Cancel</button>
-        <button type="submit" class="btn primary">Save</button>
+        <button type="button" class="btn" data-close="1">Cancel / रद्द करें</button>
+        <button type="submit" class="btn primary">Save / सेव करें</button>
       </div>
     </form>
-  `);
+  `, () => {
+    const form = document.getElementById("f-supplierpayment");
+    form.onsubmit = async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const obj = Object.fromEntries(fd.entries());
+      obj.amount = Number(obj.amount)||0;
+      const billPhotoUrl = await readPhotoAsDataUrl(document.getElementById("supplierpayment-billphoto"));
+      if (billPhotoUrl) obj.docPhotoUrl = billPhotoUrl;
+      try{
+        const row = await dbInsert("supplierpayment", obj);
+        state.supplierPayments.push(row);
+        closeModal();
+      } catch(err){ alert("Save nahi ho paya, dobara try karein.\\n\\n"+(err.message||err)); }
+    };
+  });
 }
 
 function returnModal(){
@@ -963,23 +1095,23 @@ function returnModal(){
   return wrap(`
     <h2>${isEdit?"Update":"Record"} return / RTO</h2>
     <form id="f-return">
-      <label class="field">Design<select name="designId">${state.designs.map(d=>`<option value="${d.id}" ${r.designId===d.id?"selected":""}>${d.code} — ${d.name}</option>`).join("")}</select></label>
+      <label class="field">Design / डिज़ाइन<select name="designId">${state.designs.map(d=>`<option value="${d.id}" ${r.designId===d.id?"selected":""}>${d.code} — ${d.name}</option>`).join("")}</select></label>
       <div class="grid2">
-        <label class="field">Date<input name="date" type="date" required value="${r.date}"></label>
-        <label class="field">Destination<select name="destination"><option ${r.destination==="Amazon.in"?"selected":""}>Amazon.in</option><option ${r.destination==="Amazon.com"?"selected":""}>Amazon.com</option><option ${r.destination==="Myntra"?"selected":""}>Myntra</option></select></label>
+        <label class="field">Date / तारीख<input name="date" type="date" required value="${r.date}"></label>
+        <label class="field">Destination / कहाँ भेजा (Destination)<select name="destination"><option ${r.destination==="Amazon.in"?"selected":""}>Amazon.in</option><option ${r.destination==="Amazon.com"?"selected":""}>Amazon.com</option><option ${r.destination==="Myntra"?"selected":""}>Myntra</option></select></label>
       </div>
       <div class="grid2">
-        <label class="field">Quantity (pieces)<input name="qty" type="number" required value="${r.qty}"></label>
-        <label class="field">Resolution<select name="resolution">
+        <label class="field">Quantity (pieces) / कितने पीस (Quantity)<input name="qty" type="number" required value="${r.qty}"></label>
+        <label class="field">Resolution / क्या किया गया (Resolution)<select name="resolution">
           <option value="pending" ${r.resolution==="pending"?"selected":""}>Pending decision</option>
           <option value="restock" ${r.resolution==="restock"?"selected":""}>Restock (sellable again)</option>
           <option value="damaged" ${r.resolution==="damaged"?"selected":""}>Damaged / write-off</option>
         </select></label>
       </div>
-      <label class="field">Reason (optional)<input name="reason" value="${r.reason||""}"></label>
+      <label class="field">Reason (optional) / कारण (optional)<input name="reason" value="${r.reason||""}"></label>
       <div class="row-actions" style="justify-content:flex-end;margin-top:6px">
-        <button type="button" class="btn" data-close="1">Cancel</button>
-        <button type="submit" class="btn primary">Save</button>
+        <button type="button" class="btn" data-close="1">Cancel / रद्द करें</button>
+        <button type="submit" class="btn primary">Save / सेव करें</button>
       </div>
     </form>
   `);
@@ -991,35 +1123,35 @@ function materialModal(){
   return wrap(`
     <h2>${isEdit?"Edit":"Add"} material</h2>
     <form id="f-material">
-      <label class="field">Name<input name="name" required value="${m.name}"></label>
+      <label class="field">Name / नाम<input name="name" required value="${m.name}"></label>
       <div class="grid2">
         <label class="field">Type<select name="type" id="mat-type"><option ${m.type==="Fabric"?"selected":""}>Fabric</option><option ${m.type==="Thread"?"selected":""}>Thread</option><option ${m.type==="Buttons"?"selected":""}>Buttons</option><option ${m.type==="Lace"?"selected":""}>Lace</option><option ${m.type==="Labels/Tags"?"selected":""}>Labels/Tags</option><option ${m.type==="Packaging"?"selected":""}>Packaging</option><option ${m.type==="Other"?"selected":""}>Other</option></select></label>
-        <label class="field">Unit<select name="unit"><option ${m.unit==="meter"?"selected":""}>meter</option><option ${m.unit==="roll"?"selected":""}>roll</option><option ${m.unit==="kg"?"selected":""}>kg</option><option ${m.unit==="piece"?"selected":""}>piece</option></select></label>
+        <label class="field">Unit / यूनिट<select name="unit"><option ${m.unit==="meter"?"selected":""}>meter</option><option ${m.unit==="roll"?"selected":""}>roll</option><option ${m.unit==="kg"?"selected":""}>kg</option><option ${m.unit==="piece"?"selected":""}>piece</option></select></label>
       </div>
       <div id="fabric-fields" style="display:${m.type==="Fabric"?"block":"none"}">
-        <label class="field">Fabric type<select name="fabricTypeId" id="mat-fabrictype">${state.fabricTypes.map(f=>`<option value="${f.id}" ${m.fabricTypeId===f.id?"selected":""}>${f.name} (${f.foldPercent}% actual)</option>`).join("")}</select></label>
+        <label class="field">Fabric type / कपड़े का प्रकार<select name="fabricTypeId" id="mat-fabrictype">${state.fabricTypes.map(f=>`<option value="${f.id}" ${m.fabricTypeId===f.id?"selected":""}>${f.name} (${f.foldPercent}% actual)</option>`).join("")}</select></label>
         <label class="field" style="margin-top:10px">Fabric source<select name="printStatus"><option value="raw" ${m.printStatus!=="ready"?"selected":""}>Raw — needs printing</option><option value="ready" ${m.printStatus==="ready"?"selected":""}>Ready-printed / pre-shrunk — bought direct, skips printing</option></select></label>
         <label class="field" style="margin-top:10px">Billed quantity (as per bilty/bill, meters)<input name="billedQty" id="mat-billedqty" type="number" step="0.01" value="${m.billedQty||""}"></label>
         <p class="note" id="mat-actual-note">Actual usable quantity is calculated automatically from the fold %.</p>
       </div>
       <div class="grid2" id="qty-fields" style="display:${m.type==="Fabric"?"none":"grid"}">
-        <label class="field">Current qty<input name="qty" id="mat-qty-manual" type="number" step="0.01" value="${m.qty}"></label>
+        <label class="field">Current qty / अभी कितना बचा है (Current qty)<input name="qty" id="mat-qty-manual" type="number" step="0.01" value="${m.qty}"></label>
       </div>
       <label class="field" style="margin-top:10px">Alert me when stock drops below (any number you choose — just a reminder threshold)<input name="lowAt" type="number" step="0.01" value="${m.lowAt||0}"></label>
       <div class="grid2">
-        <label class="field">Rate (optional, per billed unit)<input name="rate" type="number" step="0.01" value="${m.rate||""}"></label>
-        <label class="field">Supplier name (free text, for quick reference)<input name="supplier" value="${m.supplier||""}"></label>
+        <label class="field">Rate (optional, per billed unit) / रेट (optional, per unit)<input name="rate" type="number" step="0.01" value="${m.rate||""}"></label>
+        <label class="field">Supplier name (free text, for quick reference) / सप्लायर का नाम (लिख दो, koi list nahi)<input name="supplier" value="${m.supplier||""}"></label>
       </div>
-      <label class="field">Registered supplier (optional — links this purchase to the Suppliers ledger for payables tracking)<select name="supplierId"><option value="">— none —</option>${state.suppliers.map(s=>`<option value="${s.id}" ${m.supplierId===s.id?"selected":""}>${s.name}</option>`).join("")}</select></label>
+      <label class="field">Registered supplier (optional — links this purchase to the Suppliers ledger for payables tracking) / Registered सप्लायर (optional)<select name="supplierId"><option value="">— none —</option>${state.suppliers.map(s=>`<option value="${s.id}" ${m.supplierId===s.id?"selected":""}>${s.name}</option>`).join("")}</select></label>
       <div class="grid2">
         <label class="field">Lot / shade<input name="lot" value="${m.lot||""}"></label>
-        <label class="field">Current location<select name="location">${LOCATIONS.map(l=>`<option ${m.location===l?"selected":""}>${l}</option>`).join("")}</select></label>
+        <label class="field">Current location / अभी कहाँ रखा है (Location)<select name="location">${LOCATIONS.map(l=>`<option ${m.location===l?"selected":""}>${l}</option>`).join("")}</select></label>
       </div>
       <label class="field">Bill / bilty photo (optional)<input type="file" accept="image/*" id="mat-billphoto"></label>
       ${m.billPhotoUrl ? `<div class="note">A bill photo is already attached. Choosing a new file replaces it.</div>` : ""}
       <div class="row-actions" style="justify-content:flex-end;margin-top:6px">
-        <button type="button" class="btn" data-close="1">Cancel</button>
-        <button type="submit" class="btn primary">Save</button>
+        <button type="button" class="btn" data-close="1">Cancel / रद्द करें</button>
+        <button type="submit" class="btn primary">Save / सेव करें</button>
       </div>
     </form>
   `, () => {
@@ -1093,10 +1225,10 @@ function designModal(){
     <h2>${isEdit?"Edit":"Add"} design</h2>
     <form id="f-design">
       <div class="grid2">
-        <label class="field">Design code<input name="code" required value="${d.code}"></label>
-        <label class="field">Name<input name="name" required value="${d.name}"></label>
+        <label class="field">Design code / डिज़ाइन कोड<input name="code" required value="${d.code}"></label>
+        <label class="field">Name / नाम<input name="name" required value="${d.name}"></label>
       </div>
-      <label class="field">Status<select name="status">
+      <label class="field">Status / स्टेटस<select name="status">
         <option value="draft" ${d.status==="draft"?"selected":""}>Draft / sample stage — not in production yet</option>
         <option value="active" ${(!d.status||d.status==="active")?"selected":""}>Approved / active — in production</option>
         <option value="rejected" ${d.status==="rejected"?"selected":""}>Rejected — sample didn't work out, kept only for cost record</option>
@@ -1104,32 +1236,32 @@ function designModal(){
       <p class="note">For a draft or rejected design, just the code, name, and sample cost are enough — you don't need to fill in components/fabric until it's approved for production.</p>
       <label class="field">Selling price by channel (optional — prices can differ per marketplace)</label>
       <div class="grid3">
-        <label class="field">Amazon.in (₹)<input name="priceIn" type="number" value="${d.priceIn||""}"></label>
-        <label class="field">Amazon.com ($)<input name="priceCom" type="number" value="${d.priceCom||""}"></label>
-        <label class="field">Myntra (₹)<input name="priceMyntra" type="number" value="${d.priceMyntra||""}"></label>
+        <label class="field">Amazon.in (₹) / Amazon.in दाम (₹)<input name="priceIn" type="number" value="${d.priceIn||""}"></label>
+        <label class="field">Amazon.com ($) / Amazon.com दाम ($)<input name="priceCom" type="number" value="${d.priceCom||""}"></label>
+        <label class="field">Myntra (₹) / Myntra दाम (₹)<input name="priceMyntra" type="number" value="${d.priceMyntra||""}"></label>
       </div>
       <label class="field" style="margin-top:10px">Colour variant?<select name="hasColor"><option value="no" ${!d.hasColor?"selected":""}>No</option><option value="yes" ${d.hasColor?"selected":""}>Yes</option></select></label>
       <div class="grid2">
-        <label class="field">Sample-making cost (₹, one-time — master ji's first sample)<input name="sampleCost" type="number" value="${d.sampleCost||""}"></label>
-        <label class="field">Photoshoot/video cost (₹, per design)<input name="shootCost" type="number" value="${d.shootCost||""}"></label>
+        <label class="field">Sample-making cost (₹, one-time — master ji's first sample) / सैंपल बनाने का खर्चा (₹, एक बार — master ji ka pahla sample)<input name="sampleCost" type="number" value="${d.sampleCost||""}"></label>
+        <label class="field">Photoshoot/video cost (₹, per design) / फोटोशूट/वीडियो खर्चा (₹, हर design ke liye)<input name="shootCost" type="number" value="${d.shootCost||""}"></label>
       </div>
       <label class="field">Per-piece costing (estimates — for the profit calculator; stitching cost is worked out automatically from karigar records, so it's not asked here)</label>
       <div class="grid3">
-        <label class="field">Fabric cost/piece (₹)<input name="fabricCostPerPiece" type="number" step="0.01" value="${d.fabricCostPerPiece||""}"></label>
-        <label class="field">Printing cost/piece (₹)<input name="printingCostPerPiece" type="number" step="0.01" value="${d.printingCostPerPiece||""}"></label>
-        <label class="field">Press &amp; packing cost/piece (₹)<input name="pressPackCostPerPiece" type="number" step="0.01" value="${d.pressPackCostPerPiece||""}"></label>
+        <label class="field">Fabric cost/piece (₹) / कपड़े का खर्चा प्रति पीस (₹)<input name="fabricCostPerPiece" type="number" step="0.01" value="${d.fabricCostPerPiece||""}"></label>
+        <label class="field">Printing cost/piece (₹) / छपाई का खर्चा प्रति पीस (₹)<input name="printingCostPerPiece" type="number" step="0.01" value="${d.printingCostPerPiece||""}"></label>
+        <label class="field">Press &amp; packing cost/piece (₹) / प्रेस-पैकिंग खर्चा प्रति पीस (₹)<input name="pressPackCostPerPiece" type="number" step="0.01" value="${d.pressPackCostPerPiece||""}"></label>
       </div>
       <div class="grid2">
         <label class="field" style="margin-top:10px">Marketplace commission (% of selling price, average across channels)<input name="commissionPercent" type="number" step="0.01" value="${d.commissionPercent||""}"></label>
         <label class="field" style="margin-top:10px">GST % on this design (India sales only — exports usually zero-rated)<input name="gstPercent" type="number" step="0.01" value="${d.gstPercent!=null?d.gstPercent:5}"></label>
       </div>
-      <label class="field">Photos/video Google Drive link (optional)<input name="driveLink" type="url" placeholder="https://drive.google.com/..." value="${d.driveLink||""}"></label>
+      <label class="field">Photos/video Google Drive link (optional) / फोटो/वीडियो Google Drive link (optional)<input name="driveLink" type="url" placeholder="https://drive.google.com/..." value="${d.driveLink||""}"></label>
       <label class="field">Components (e.g. Top, Bottom, Dupatta — add one row per piece; leave empty for a draft/rejected design)</label>
       <div id="comp-rows"></div>
       <button type="button" class="btn small" id="add-comp">+ Add component</button>
       <div class="row-actions" style="justify-content:flex-end;margin-top:6px">
-        <button type="button" class="btn" data-close="1">Cancel</button>
-        <button type="submit" class="btn primary">Save</button>
+        <button type="button" class="btn" data-close="1">Cancel / रद्द करें</button>
+        <button type="submit" class="btn primary">Save / सेव करें</button>
       </div>
     </form>
   `, () => renderCompRows());
@@ -1166,36 +1298,38 @@ function printingModal(){
         <h2 style="margin-bottom:8px">Work out how much to send (optional)</h2>
         <p class="note" style="margin-top:0">Pick the design and how many pieces you need — the quantity to send below will fill in automatically, accounting for cutting rejection and printing shrinkage.</p>
         <div class="grid3">
-          <label class="field">Design<select id="print-calc-design"><option value="">— none —</option>${state.designs.map(d=>`<option value="${d.id}" ${p.designId===d.id?"selected":""}>${d.code}</option>`).join("")}</select></label>
-          <label class="field">Component<select id="print-calc-component"></select></label>
-          <label class="field">Pieces needed<input id="print-calc-pieces" type="number" value="${p.piecesNeeded||""}"></label>
+          <label class="field">Design / डिज़ाइन<select id="print-calc-design"><option value="">— none —</option>${state.designs.map(d=>`<option value="${d.id}" ${p.designId===d.id?"selected":""}>${d.code}</option>`).join("")}</select></label>
+          <label class="field">Component / पार्ट (Component)<select id="print-calc-component"></select></label>
+          <label class="field">Pieces needed / कितने पीस चाहिए<input id="print-calc-pieces" type="number" value="${p.piecesNeeded||""}"></label>
         </div>
         <div id="print-calc-result" class="note" style="margin-top:8px"></div>
       </div>
       <div class="grid2">
-        <label class="field">Fabric<select name="materialId" id="print-material">${fabrics.map(m=>`<option value="${m.id}" ${p.materialId===m.id?"selected":""}>${m.name}${m.lot?" ("+m.lot+")":""}</option>`).join("")}</select></label>
-        <label class="field">Printer name<input name="printer" value="${p.printer||""}"></label>
+        <label class="field">Fabric / कपड़ा<select name="materialId" id="print-material">${fabrics.map(m=>`<option value="${m.id}" ${p.materialId===m.id?"selected":""}>${m.name}${m.lot?" ("+m.lot+")":""}</option>`).join("")}</select></label>
+        <label class="field">Printer name / प्रिंटर का नाम<input name="printer" value="${p.printer||""}"></label>
       </div>
       <div class="grid2">
-        <label class="field">Sent date<input name="sentDate" type="date" value="${p.sentDate}"></label>
-        <label class="field">Sent qty (actual meters)<input name="sentQty" id="print-sentqty" type="number" step="0.01" value="${p.sentQty}"></label>
+        <label class="field">Sent date / भेजने की तारीख<input name="sentDate" type="date" value="${p.sentDate}"></label>
+        <label class="field">Sent qty (actual meters) / कितना भेजा (मीटर में)<input name="sentQty" id="print-sentqty" type="number" step="0.01" value="${p.sentQty}"></label>
       </div>
       <input type="hidden" name="designId" id="print-designid" value="${p.designId||""}">
       <input type="hidden" name="component" id="print-component-hidden" value="${p.component||""}">
       <input type="hidden" name="piecesNeeded" id="print-pieces-hidden" value="${p.piecesNeeded||""}">
       <p class="note">Fill the fields below once fabric comes back from the printer. Shrinkage % and settlement are calculated automatically.</p>
       <div class="grid2">
-        <label class="field">Returned date<input name="returnedDate" type="date" value="${p.returnedDate||""}"></label>
-        <label class="field">Returned qty (actual meters)<input name="returnedQty" id="print-returnedqty" type="number" step="0.01" value="${p.returnedQty||""}"></label>
+        <label class="field">Returned date / वापस आने की तारीख<input name="returnedDate" type="date" value="${p.returnedDate||""}"></label>
+        <label class="field">Returned qty (actual meters) / कितना वापस आया (मीटर में)<input name="returnedQty" id="print-returnedqty" type="number" step="0.01" value="${p.returnedQty||""}"></label>
       </div>
       <div class="panel" style="padding:12px 14px;margin:4px 0" id="print-shrinkage-note">—</div>
       <div class="grid2">
-        <label class="field">Print quality issue (m)<input name="printIssueQty" type="number" step="0.01" value="${p.printIssueQty||""}"></label>
-        <label class="field">Damage (m)<input name="damageQty" type="number" step="0.01" value="${p.damageQty||""}"></label>
+        <label class="field">Print quality issue (m) / छपाई खराबी (मीटर में)<input name="printIssueQty" type="number" step="0.01" value="${p.printIssueQty||""}"></label>
+        <label class="field">Damage (m) / खराब/डैमेज (मीटर में)<input name="damageQty" type="number" step="0.01" value="${p.damageQty||""}"></label>
       </div>
+      <label class="field">Bilty/bill photo (optional) / बिल्टी-बिल फोटो (optional)<input type="file" accept="image/*" id="print-billphoto"></label>
+      ${p.docPhotoUrl ? `<div class="note">A bilty photo is already attached. Choosing a new file replaces it.</div>` : ""}
       <div class="row-actions" style="justify-content:flex-end;margin-top:6px">
-        <button type="button" class="btn" data-close="1">Cancel</button>
-        <button type="submit" class="btn primary">Save</button>
+        <button type="button" class="btn" data-close="1">Cancel / रद्द करें</button>
+        <button type="submit" class="btn primary">Save / सेव करें</button>
       </div>
     </form>
   `, () => {
@@ -1263,6 +1397,9 @@ function printingModal(){
         return;
       }
       delete obj.piecesNeeded;
+      const billPhotoUrl = await readPhotoAsDataUrl(document.getElementById("print-billphoto"));
+      if (billPhotoUrl) obj.docPhotoUrl = billPhotoUrl;
+      else if (isEdit && p.docPhotoUrl) obj.docPhotoUrl = p.docPhotoUrl;
       try{
         if (isEdit){
           const row = await dbUpdate("printing", modal.data, obj);
@@ -1291,7 +1428,7 @@ function foldSettingsModal(){
     <p class="note"><b>Fold %</b> — actual usable % of billed quantity when fabric is purchased. <b>Standard shrinkage %</b> — expected fabric loss during printing, used to auto-calculate printer settlement.</p>
     <form id="f-foldsettings">
       <table style="margin-bottom:8px">
-        <tr><th>Fabric type</th><th>Fold %</th><th>Standard shrinkage %</th></tr>
+        <tr><th>Fabric type</th><th>Fold % / फोल्ड %</th><th>Standard shrinkage % / सिकुड़न %</th></tr>
         ${state.fabricTypes.map((f,i)=>`
           <tr>
             <td><input value="${f.name}" data-fold-name="${i}"></td>
@@ -1300,8 +1437,8 @@ function foldSettingsModal(){
           </tr>`).join("")}
       </table>
       <div class="row-actions" style="justify-content:flex-end;margin-top:12px">
-        <button type="button" class="btn" data-close="1">Cancel</button>
-        <button type="submit" class="btn primary">Save</button>
+        <button type="button" class="btn" data-close="1">Cancel / रद्द करें</button>
+        <button type="submit" class="btn primary">Save / सेव करें</button>
       </div>
     </form>
   `, () => {
@@ -1329,7 +1466,7 @@ function designJourneyModal(designId){
     <h2>${d.code} — journey</h2>
     <p class="note">One-click view of where this design's production stands right now, across every stage.</p>
     <table>
-      <tr><th>Stage</th><th>Detail</th></tr>
+      <tr><th>Stage / स्टेज</th><th>Detail / विवरण</th></tr>
       <tr><td>Printing</td><td>Sent: <b class="mono">${j.printSent}m</b> · Returned: <b class="mono">${j.printReturned}m</b> · Pending at printer: <b class="mono">${j.pendingAtPrinter}m</b></td></tr>
       <tr><td>Cutting</td><td>Total pieces cut: <b class="mono">${j.totalCutPieces}</b> · Fabric used: <b class="mono">${j.totalMeterUsed}m</b></td></tr>
       <tr><td>Karigar</td><td>Given: <b class="mono">${j.givenToKarigar}</b> · Received: <b class="mono">${j.receivedFromKarigar}</b> · Pending: <b class="mono">${j.pendingWithKarigar}</b> · Not-OK: <b class="mono">${j.notOk}</b></td></tr>
@@ -1346,22 +1483,22 @@ function cuttingModal(){
   const readyFabrics = state.materials.filter(m=>m.type==="Fabric" && m.printStatus==="ready");
   const accessories = state.materials.filter(m=>m.type!=="Fabric");
   return wrap(`
-    <h2>Record cutting</h2>
+    <h2>Record cutting / कटिंग दर्ज करें</h2>
     <form id="f-cutting">
-      <label class="field">Design<select name="designId" required>${state.designs.map(d=>`<option value="${d.id}">${d.code} — ${d.name}</option>`).join("")}</select></label>
-      <label class="field">Fabric source (if using ready-printed/direct-buy fabric — optional)<select name="materialId"><option value="">— printed via printer (not from ready-stock) —</option>${readyFabrics.map(m=>`<option value="${m.id}">${m.name}${m.lot?" ("+m.lot+")":""} — ${m.qty}m available</option>`).join("")}</select></label>
+      <label class="field">Design / डिज़ाइन<select name="designId" required>${state.designs.map(d=>`<option value="${d.id}">${d.code} — ${d.name}</option>`).join("")}</select></label>
+      <label class="field">Fabric source (if using ready-printed/direct-buy fabric — optional) / कपड़ा कहाँ से (ready-printed hai to — optional)<select name="materialId"><option value="">— printed via printer (not from ready-stock) —</option>${readyFabrics.map(m=>`<option value="${m.id}">${m.name}${m.lot?" ("+m.lot+")":""} — ${m.qty}m available</option>`).join("")}</select></label>
       <div class="grid2">
-        <label class="field">Date<input name="date" type="date" required value="${new Date().toISOString().slice(0,10)}"></label>
-        <label class="field">Fabric used (meters)<input name="meterUsed" type="number" step="0.01" required></label>
+        <label class="field">Date / तारीख<input name="date" type="date" required value="${new Date().toISOString().slice(0,10)}"></label>
+        <label class="field">Fabric used (meters) / कपड़ा कितना लगा (मीटर में)<input name="meterUsed" type="number" step="0.01" required></label>
       </div>
-      <label class="field">Total pieces cut (this lay/marker)<input name="totalPieces" type="number" required></label>
+      <label class="field">Total pieces cut (this lay/marker) / कुल कितने पीस काटे<input name="totalPieces" type="number" required></label>
       <label class="field">Size-wise output — number of pieces per size (not meters)</label>
       <div class="grid3">${SIZES.map(s=>`<label class="field">${s} (pieces)<input name="size_${s}" type="number"></label>`).join("")}</div>
       <label class="field" style="margin-top:6px">Accessory material used (optional — thread/button/label/packaging, deducted from stock)<select name="accessoryMaterialId"><option value="">— none —</option>${accessories.map(m=>`<option value="${m.id}">${m.name} — ${m.qty} ${m.unit} available</option>`).join("")}</select></label>
-      <label class="field">Accessory qty used<input name="accessoryQty" type="number" step="0.01"></label>
+      <label class="field">Accessory qty used / एक्सेसरी कितनी लगी<input name="accessoryQty" type="number" step="0.01"></label>
       <div class="row-actions" style="justify-content:flex-end;margin-top:6px">
-        <button type="button" class="btn" data-close="1">Cancel</button>
-        <button type="submit" class="btn primary">Save</button>
+        <button type="button" class="btn" data-close="1">Cancel / रद्द करें</button>
+        <button type="submit" class="btn primary">Save / सेव करें</button>
       </div>
     </form>
   `);
@@ -1373,15 +1510,15 @@ function karigarModal(){
   return wrap(`
     <h2>${isEdit?"Edit":"Add"} karigar</h2>
     <form id="f-karigar">
-      <label class="field">Name<input name="name" required value="${k.name}"></label>
+      <label class="field">Name / नाम<input name="name" required value="${k.name}"></label>
       <div class="grid2">
-        <label class="field">Phone<input name="phone" value="${k.phone||""}"></label>
-        <label class="field">Rate per piece (₹)<input name="rate" type="number" step="0.01" required value="${k.rate}"></label>
+        <label class="field">Phone / फ़ोन<input name="phone" value="${k.phone||""}"></label>
+        <label class="field">Rate per piece (₹) / प्रति पीस रेट (₹)<input name="rate" type="number" step="0.01" required value="${k.rate}"></label>
       </div>
-      <label class="field">Advance given (₹, running balance)<input name="advance" type="number" step="0.01" value="${k.advance||0}"></label>
+      <label class="field">Advance given (₹, running balance) / एडवांस दिया (₹)<input name="advance" type="number" step="0.01" value="${k.advance||0}"></label>
       <div class="row-actions" style="justify-content:flex-end;margin-top:6px">
-        <button type="button" class="btn" data-close="1">Cancel</button>
-        <button type="submit" class="btn primary">Save</button>
+        <button type="button" class="btn" data-close="1">Cancel / रद्द करें</button>
+        <button type="submit" class="btn primary">Save / सेव करें</button>
       </div>
     </form>
   `);
@@ -1393,14 +1530,14 @@ function staffModal(){
   return wrap(`
     <h2>${isEdit?"Edit":"Add"} staff member</h2>
     <form id="f-staff">
-      <label class="field">Name<input name="name" required value="${s.name}"></label>
+      <label class="field">Name / नाम<input name="name" required value="${s.name}"></label>
       <div class="grid2">
-        <label class="field">Role<input name="role" placeholder="e.g. Master ji, Cutting/QC, Packing" required value="${s.role}"></label>
-        <label class="field">Monthly salary (₹)<input name="monthlySalary" type="number" required value="${s.monthlySalary}"></label>
+        <label class="field">Role / काम (Role)<input name="role" placeholder="e.g. Master ji, Cutting/QC, Packing" required value="${s.role}"></label>
+        <label class="field">Monthly salary (₹) / महीने की सैलरी (₹)<input name="monthlySalary" type="number" required value="${s.monthlySalary}"></label>
       </div>
       <div class="row-actions" style="justify-content:flex-end;margin-top:6px">
-        <button type="button" class="btn" data-close="1">Cancel</button>
-        <button type="submit" class="btn primary">Save</button>
+        <button type="button" class="btn" data-close="1">Cancel / रद्द करें</button>
+        <button type="submit" class="btn primary">Save / सेव करें</button>
       </div>
     </form>
   `);
@@ -1408,17 +1545,17 @@ function staffModal(){
 
 function staffPaymentModal(){
   return wrap(`
-    <h2>Record salary payment</h2>
+    <h2>Record salary payment / सैलरी दर्ज करें</h2>
     <form id="f-staffpayment">
-      <label class="field">Staff member<select name="staffId">${state.staff.map(s=>`<option value="${s.id}">${s.name} — ${s.role}</option>`).join("")}</select></label>
+      <label class="field">Staff member / स्टाफ<select name="staffId">${state.staff.map(s=>`<option value="${s.id}">${s.name} — ${s.role}</option>`).join("")}</select></label>
       <div class="grid2">
-        <label class="field">Date<input name="date" type="date" required value="${new Date().toISOString().slice(0,10)}"></label>
-        <label class="field">Amount paid (₹)<input name="amount" type="number" required></label>
+        <label class="field">Date / तारीख<input name="date" type="date" required value="${new Date().toISOString().slice(0,10)}"></label>
+        <label class="field">Amount paid (₹) / कितना पैसा दिया (₹)<input name="amount" type="number" required></label>
       </div>
-      <label class="field">Note (optional)<input name="note"></label>
+      <label class="field">Note (optional) / नोट (optional)<input name="note"></label>
       <div class="row-actions" style="justify-content:flex-end;margin-top:6px">
-        <button type="button" class="btn" data-close="1">Cancel</button>
-        <button type="submit" class="btn primary">Save</button>
+        <button type="button" class="btn" data-close="1">Cancel / रद्द करें</button>
+        <button type="submit" class="btn primary">Save / सेव करें</button>
       </div>
     </form>
   `);
@@ -1428,15 +1565,15 @@ function karigarPaymentModal(){
   return wrap(`
     <h2>Record karigar payment</h2>
     <form id="f-karigarpayment">
-      <label class="field">Karigar<select name="karigarId">${state.karigars.map(k=>`<option value="${k.id}">${k.name} — balance due ₹${paymentDue(k.id).toFixed(0)}</option>`).join("")}</select></label>
+      <label class="field">Karigar / कारीगर<select name="karigarId">${state.karigars.map(k=>`<option value="${k.id}">${k.name} — balance due ₹${paymentDue(k.id).toFixed(0)}</option>`).join("")}</select></label>
       <div class="grid2">
-        <label class="field">Date<input name="date" type="date" required value="${new Date().toISOString().slice(0,10)}"></label>
-        <label class="field">Amount paid (₹)<input name="amount" type="number" required></label>
+        <label class="field">Date / तारीख<input name="date" type="date" required value="${new Date().toISOString().slice(0,10)}"></label>
+        <label class="field">Amount paid (₹) / कितना पैसा दिया (₹)<input name="amount" type="number" required></label>
       </div>
       <label class="field">Note (optional — e.g. "weekly payment", "advance")<input name="note"></label>
       <div class="row-actions" style="justify-content:flex-end;margin-top:6px">
-        <button type="button" class="btn" data-close="1">Cancel</button>
-        <button type="submit" class="btn primary">Save</button>
+        <button type="button" class="btn" data-close="1">Cancel / रद्द करें</button>
+        <button type="submit" class="btn primary">Save / सेव करें</button>
       </div>
     </form>
   `);
@@ -1451,27 +1588,27 @@ function batchModal(){
     <h2>${isEdit?"Update":"Assign"} batch</h2>
     <form id="f-batch">
       <div class="grid2">
-        <label class="field">Design<select name="designId" id="batch-design">${state.designs.map(d=>`<option value="${d.id}" ${b.designId===d.id?"selected":""}>${d.code}</option>`).join("")}</select></label>
-        <label class="field">Component<select name="component" id="batch-component">${comps.map(c=>`<option value="${c.name}" ${b.component===c.name?"selected":""}>${c.name}</option>`).join("")}</select></label>
+        <label class="field">Design / डिज़ाइन<select name="designId" id="batch-design">${state.designs.map(d=>`<option value="${d.id}" ${b.designId===d.id?"selected":""}>${d.code}</option>`).join("")}</select></label>
+        <label class="field">Component / पार्ट (Component)<select name="component" id="batch-component">${comps.map(c=>`<option value="${c.name}" ${b.component===c.name?"selected":""}>${c.name}</option>`).join("")}</select></label>
       </div>
       <div class="grid2">
-        <label class="field">Karigar<select name="karigarId">${state.karigars.map(k=>`<option value="${k.id}" ${b.karigarId===k.id?"selected":""}>${k.name}</option>`).join("")}</select></label>
-        <label class="field">Batch label<input name="batchLabel" value="${b.batchLabel}"></label>
+        <label class="field">Karigar / कारीगर<select name="karigarId">${state.karigars.map(k=>`<option value="${k.id}" ${b.karigarId===k.id?"selected":""}>${k.name}</option>`).join("")}</select></label>
+        <label class="field">Batch label / बैच का नाम<input name="batchLabel" value="${b.batchLabel}"></label>
       </div>
       <div class="grid2">
-        <label class="field">Given qty<input name="givenQty" type="number" value="${b.givenQty}"></label>
-        <label class="field">Given date<input name="givenDate" type="date" value="${b.givenDate}"></label>
+        <label class="field">Given qty / कितना दिया<input name="givenQty" type="number" value="${b.givenQty}"></label>
+        <label class="field">Given date / देने की तारीख<input name="givenDate" type="date" value="${b.givenDate}"></label>
       </div>
-      <label class="field">Expected return date (for the delay alert on Dashboard)<input name="expectedReturnDate" type="date" value="${b.expectedReturnDate||""}"></label>
+      <label class="field">Expected return date (for the delay alert on Dashboard) / कब तक वापस आना चाहिए (Dashboard पर alert ke liye)<input name="expectedReturnDate" type="date" value="${b.expectedReturnDate||""}"></label>
       <div class="grid3">
-        <label class="field">Received qty<input name="receivedQty" type="number" value="${b.receivedQty}"></label>
-        <label class="field">Not-OK qty (reject/alter/damage/waste)<input name="notOkQty" type="number" value="${b.notOkQty}"></label>
-        <label class="field">Received date<input name="receivedDate" type="date" value="${b.receivedDate}"></label>
+        <label class="field">Received qty / कितना वापस आया<input name="receivedQty" type="number" value="${b.receivedQty}"></label>
+        <label class="field">Not-OK qty (reject/alter/damage/waste) / खराब पीस (reject/damage)<input name="notOkQty" type="number" value="${b.notOkQty}"></label>
+        <label class="field">Received date / वापस आने की तारीख<input name="receivedDate" type="date" value="${b.receivedDate}"></label>
       </div>
       <p class="note">Payment is calculated automatically as (received − not-OK) × rate. Not-OK pieces simply aren't paid for.</p>
       <div class="row-actions" style="justify-content:flex-end;margin-top:6px">
-        <button type="button" class="btn" data-close="1">Cancel</button>
-        <button type="submit" class="btn primary">Save</button>
+        <button type="button" class="btn" data-close="1">Cancel / रद्द करें</button>
+        <button type="submit" class="btn primary">Save / सेव करें</button>
       </div>
     </form>
   `, () => {
@@ -1490,19 +1627,19 @@ function pressModal(){
   return wrap(`
     <h2>${isEdit?"Update":"Record"} press entry</h2>
     <form id="f-press">
-      <label class="field">Design<select name="designId">${state.designs.map(d=>`<option value="${d.id}" ${p.designId===d.id?"selected":""}>${d.code}</option>`).join("")}</select></label>
+      <label class="field">Design / डिज़ाइन<select name="designId">${state.designs.map(d=>`<option value="${d.id}" ${p.designId===d.id?"selected":""}>${d.code}</option>`).join("")}</select></label>
       <div class="grid2">
-        <label class="field">Sent date<input name="date" type="date" value="${p.date}"></label>
-        <label class="field">Sent qty<input name="sentQty" type="number" value="${p.sentQty}"></label>
+        <label class="field">Sent date / भेजने की तारीख<input name="date" type="date" value="${p.date}"></label>
+        <label class="field">Sent qty / कितना भेजा<input name="sentQty" type="number" value="${p.sentQty}"></label>
       </div>
-      <label class="field">Expected return date<input name="expectedReturnDate" type="date" value="${p.expectedReturnDate||""}"></label>
+      <label class="field">Expected return date / कब तक वापस आना चाहिए<input name="expectedReturnDate" type="date" value="${p.expectedReturnDate||""}"></label>
       <div class="grid2">
         <label class="field">Returned qty<input name="returnedQty" type="number" value="${p.returnedQty}"></label>
-        <label class="field">Returned date<input name="returnedDate" type="date" value="${p.returnedDate}"></label>
+        <label class="field">Returned date / वापस आने की तारीख<input name="returnedDate" type="date" value="${p.returnedDate}"></label>
       </div>
       <div class="row-actions" style="justify-content:flex-end;margin-top:6px">
-        <button type="button" class="btn" data-close="1">Cancel</button>
-        <button type="submit" class="btn primary">Save</button>
+        <button type="button" class="btn" data-close="1">Cancel / रद्द करें</button>
+        <button type="submit" class="btn primary">Save / सेव करें</button>
       </div>
     </form>
   `);
@@ -1510,24 +1647,40 @@ function pressModal(){
 
 function dispatchModal(){
   return wrap(`
-    <h2>Record dispatch</h2>
+    <h2>Record dispatch / भेजा हुआ माल दर्ज करें</h2>
     <p class="note">Log boxes going out to a marketplace warehouse — this builds up the stock total shown for each channel.</p>
     <form id="f-dispatch">
-      <label class="field">Design<select name="designId">${state.designs.map(d=>`<option value="${d.id}">${d.code} — ${d.name}</option>`).join("")}</select></label>
+      <label class="field">Design / डिज़ाइन<select name="designId">${state.designs.map(d=>`<option value="${d.id}">${d.code} — ${d.name}</option>`).join("")}</select></label>
       <div class="grid2">
-        <label class="field">Date<input name="date" type="date" required value="${new Date().toISOString().slice(0,10)}"></label>
-        <label class="field">Destination<select name="destination"><option>Amazon.in</option><option>Amazon.com</option><option>Myntra</option></select></label>
+        <label class="field">Date / तारीख<input name="date" type="date" required value="${new Date().toISOString().slice(0,10)}"></label>
+        <label class="field">Destination / कहाँ भेजा (Destination)<select name="destination"><option>Amazon.in</option><option>Amazon.com</option><option>Myntra</option></select></label>
       </div>
       <div class="grid2">
-        <label class="field">Quantity (pieces)<input name="qty" type="number" required></label>
-        <label class="field">Number of boxes (optional)<input name="boxes" type="number"></label>
+        <label class="field">Quantity (pieces) / कितने पीस (Quantity)<input name="qty" type="number" required></label>
+        <label class="field">Number of boxes (optional) / कितने बॉक्स (optional)<input name="boxes" type="number"></label>
       </div>
+      <label class="field">Bilty/document photo (optional) / बिल्टी-डाक्यूमेंट फोटो (optional)<input type="file" accept="image/*" id="dispatch-billphoto"></label>
       <div class="row-actions" style="justify-content:flex-end;margin-top:6px">
-        <button type="button" class="btn" data-close="1">Cancel</button>
-        <button type="submit" class="btn primary">Save</button>
+        <button type="button" class="btn" data-close="1">Cancel / रद्द करें</button>
+        <button type="submit" class="btn primary">Save / सेव करें</button>
       </div>
     </form>
-  `);
+  `, () => {
+    const form = document.getElementById("f-dispatch");
+    form.onsubmit = async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const obj = Object.fromEntries(fd.entries());
+      obj.qty = Number(obj.qty)||0; obj.boxes = obj.boxes? Number(obj.boxes) : "";
+      const billPhotoUrl = await readPhotoAsDataUrl(document.getElementById("dispatch-billphoto"));
+      if (billPhotoUrl) obj.docPhotoUrl = billPhotoUrl;
+      try{
+        const row = await dbInsert("dispatch", obj);
+        state.dispatches.push(row);
+        closeModal();
+      } catch(err){ alert("Save nahi ho paya, dobara try karein.\\n\\n"+(err.message||err)); }
+    };
+  });
 }
 
 function exportToExcel(){
@@ -1586,9 +1739,9 @@ function attachHandlers(){
   if (exportBtn) exportBtn.onclick = () => exportToExcel();
   const signoutBtn = document.getElementById("btn-signout");
   if (signoutBtn) signoutBtn.onclick = async ()=>{ await sb.auth.signOut(); };
-  document.querySelectorAll("[data-view-photo]").forEach(el=> el.onclick = ()=>{
-    const mat = state.materials.find(x=>x.id===el.dataset.viewPhoto);
-    if (mat && mat.billPhotoUrl){ const w = window.open(); w.document.write(`<img src="${mat.billPhotoUrl}" style="max-width:100%">`); }
+  document.querySelectorAll(".view-photo-btn").forEach(el=> el.onclick = ()=>{
+    const url = el.dataset.photoUrl;
+    if (url){ const w = window.open(); w.document.write(`<img src="${url}" style="max-width:100%">`); }
   });
   document.querySelectorAll("[data-open]").forEach(el=> el.onclick = ()=> openModal(el.dataset.open, el.dataset.id || el.dataset.loc));
   document.querySelectorAll("[data-close]").forEach(el=> el.onclick = closeModal);
@@ -1745,7 +1898,7 @@ function renderLogin(){
         <div class="brand" style="padding:0 0 10px;border:none;color:var(--ink)">Aradhika<small style="color:var(--muted)">Production &amp; stock manager</small></div>
         <p class="note" style="margin-top:0">Apna email aur password daalein.</p>
         <form id="f-login">
-          <label class="field">Email<input name="email" type="email" required autocomplete="username"></label>
+          <label class="field">Email / ईमेल<input name="email" type="email" required autocomplete="username"></label>
           <label class="field" style="margin-top:8px">Password<input name="password" type="password" required autocomplete="current-password"></label>
           ${loginError ? `<p class="note" style="color:var(--madder)">${loginError}</p>` : ""}
           <div class="row-actions" style="justify-content:flex-end;margin-top:14px">
